@@ -28,7 +28,7 @@ export default function SocialProof() {
             Featured in
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-80">
-            {pressLogos.map((logo, index) => (
+            {pressLogos.map((logo) => (
               <div
                 key={logo}
                 className="text-2xl font-bold text-white grayscale hover:grayscale-0 transition-all duration-300"

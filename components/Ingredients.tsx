@@ -105,7 +105,7 @@ export default function Ingredients() {
             className="space-y-6"
           >
             <h3 className="text-2xl font-bold text-pp-ink mb-8">
-              What's Inside
+              What&apos;s Inside
             </h3>
             
             {ingredients.map((ingredient, index) => (
