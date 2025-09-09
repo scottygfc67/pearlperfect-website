@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection] = useState('');
 
   const navItems = [
     { name: 'Shop', href: '#shop' },
@@ -45,7 +44,7 @@ export default function Navbar() {
         style={{
           background: `
             linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%),
-            linear-gradient(135deg, #8B5CF6 0%, #A855F7 25%, #C084FC 50%, #DDD6FE 75%, #F3E8FF 100%)
+            linear-gradient(135deg, #5820E5 0%, #5820E5 100%)
           `,
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
@@ -71,14 +70,6 @@ export default function Navbar() {
                   className="relative text-white/80 hover:text-white transition-colors duration-200 font-medium drop-shadow-sm"
                 >
                   {item.name}
-                  {activeSection === item.href.slice(1) && (
-                    <motion.div
-                      layoutId="activeIndicator"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-white"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    />
-                  )}
                 </a>
               ))}
             </div>
@@ -135,7 +126,7 @@ export default function Navbar() {
               style={{
                 background: `
                   linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%),
-                  linear-gradient(135deg, #8B5CF6 0%, #A855F7 25%, #C084FC 50%, #DDD6FE 75%, #F3E8FF 100%)
+                  linear-gradient(135deg, #5820E5 0%, #5820E5 100%)
                 `,
                 backdropFilter: 'blur(24px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(24px) saturate(180%)',

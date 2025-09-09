@@ -88,7 +88,8 @@ export default function BeforeAfterSlider() {
                   style={{ left: `${sliderPosition}%` }}
                   onMouseDown={() => {
                     const handleMouseMove = (e: MouseEvent) => {
-                      const rect = e.currentTarget.parentElement?.getBoundingClientRect();
+                      const target = e.currentTarget as HTMLElement;
+                      const rect = target.parentElement?.getBoundingClientRect();
                       if (rect) {
                         const x = e.clientX - rect.left;
                         const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
