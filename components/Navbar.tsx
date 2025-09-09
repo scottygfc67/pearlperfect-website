@@ -42,10 +42,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         className="sticky top-0 z-50 h-18 border-b border-white/20 shadow-lg"
         style={{
-          background: `
-            linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%),
-            linear-gradient(135deg, #5820E5 0%, #5820E5 100%)
-          `,
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%)',
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
           border: '1px solid rgba(255,255,255,0.2)',
@@ -124,10 +121,7 @@ export default function Navbar() {
               transition={{ duration: 0.3 }}
               className="lg:hidden border-t border-white/20"
               style={{
-                background: `
-                  linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%),
-                  linear-gradient(135deg, #5820E5 0%, #5820E5 100%)
-                `,
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%)',
                 backdropFilter: 'blur(24px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(24px) saturate(180%)',
                 border: '1px solid rgba(255,255,255,0.2)',
