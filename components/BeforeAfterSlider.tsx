@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 export default function BeforeAfterSlider() {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -42,24 +43,36 @@ export default function BeforeAfterSlider() {
             <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
               <div className="relative h-96">
                 {/* Before Image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-40 h-40 bg-yellow-300 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-                      <span className="text-yellow-800 text-4xl">😬</span>
+                <div className="absolute inset-0">
+                  <Image
+                    src="/before.png"
+                    alt="Before PearlPerfect treatment - stained teeth"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                    <div className="text-center">
+                      <p className="text-white font-bold text-xl drop-shadow-lg">Before</p>
+                      <p className="text-white/90 text-sm mt-1 drop-shadow-lg">Stained teeth</p>
                     </div>
-                    <p className="text-yellow-800 font-bold text-xl">Before</p>
-                    <p className="text-yellow-700 text-sm mt-2">Stained teeth</p>
                   </div>
                 </div>
 
                 {/* After Image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-40 h-40 bg-white rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-                      <span className="text-blue-600 text-4xl">😁</span>
+                <div className="absolute inset-0">
+                  <Image
+                    src="/after.png"
+                    alt="After PearlPerfect treatment - bright white teeth"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                    <div className="text-center">
+                      <p className="text-white font-bold text-xl drop-shadow-lg">After</p>
+                      <p className="text-white/90 text-sm mt-1 drop-shadow-lg">PearlPerfect results</p>
                     </div>
-                    <p className="text-blue-600 font-bold text-xl">After</p>
-                    <p className="text-blue-700 text-sm mt-2">PearlPerfect results</p>
                   </div>
                 </div>
 
@@ -73,7 +86,7 @@ export default function BeforeAfterSlider() {
                 <div
                   className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-pp-purple-600 to-pp-purple-400 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-xl hover:scale-110 transition-transform"
                   style={{ left: `${sliderPosition}%` }}
-                  onMouseDown={(e) => {
+                  onMouseDown={() => {
                     const handleMouseMove = (e: MouseEvent) => {
                       const rect = e.currentTarget.parentElement?.getBoundingClientRect();
                       if (rect) {
@@ -112,11 +125,11 @@ export default function BeforeAfterSlider() {
                 </p>
                 <div className="mt-4 flex justify-center space-x-8">
                   <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-yellow-300 rounded-full"></div>
+                    <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
                     <span className="text-pp-ink-soft">Before treatment</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-white border-2 border-blue-300 rounded-full"></div>
+                    <div className="w-4 h-4 bg-white border-2 border-pp-purple-300 rounded-full"></div>
                     <span className="text-pp-ink-soft">After PearlPerfect</span>
                   </div>
                 </div>

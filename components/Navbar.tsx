@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, User, ShoppingCart, Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -64,9 +65,9 @@ export default function Navbar() {
               animate={{ scale: isScrolled ? 0.9 : 1 }}
               transition={{ duration: 0.3 }}
             >
-              <a href="/" className="text-2xl font-bold font-heading text-pp-ink">
+              <Link href="/" className="text-2xl font-bold font-heading text-pp-ink">
                 PearlPerfect
-              </a>
+              </Link>
             </motion.div>
 
             {/* Desktop Navigation */}

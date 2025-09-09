@@ -196,7 +196,7 @@ export default function ProductShowcase() {
                     className="mt-4 p-3 bg-white rounded-lg"
                   >
                     <p className="text-sm text-pp-success font-semibold">
-                      ✓ You'll save $5.00 on every order!
+                      ✓ You&apos;ll save $5.00 on every order!
                     </p>
                   </motion.div>
                 )}

@@ -143,8 +143,8 @@ export default function FinalCTA() {
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">Risk-Free Guarantee</h3>
             <p className="text-lg opacity-90 mb-6">
-              Try PearlPerfect V34 risk-free for 30 days. If you're not completely satisfied 
-              with your results, we'll refund your money, no questions asked.
+              Try PearlPerfect V34 risk-free for 30 days. If you&apos;re not completely satisfied 
+              with your results, we&apos;ll refund your money, no questions asked.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <div className="flex items-center space-x-2">

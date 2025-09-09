@@ -63,7 +63,7 @@ export default function Ingredients() {
     {
       icon: Check,
       title: 'Sensitivity Free',
-      description: 'Gentle formula that won\'t cause tooth sensitivity when used as directed',
+      description: 'Gentle formula that won&apos;t cause tooth sensitivity when used as directed',
     },
     {
       icon: Shield,

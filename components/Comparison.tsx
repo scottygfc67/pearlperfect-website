@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Check, X } from 'lucide-react';
+import Image from 'next/image';
+// import { Check, X } from 'lucide-react';
 
 export default function Comparison() {
   const comparisonData = [
@@ -90,6 +91,67 @@ export default function Comparison() {
           </p>
         </motion.div>
 
+        {/* Before/After Images */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Before Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center"
+            >
+              <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/before.png"
+                  alt="Before PearlPerfect treatment - stained teeth"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-white font-bold text-2xl drop-shadow-lg">Before</p>
+                    <p className="text-white/90 text-lg mt-2 drop-shadow-lg">Stained teeth</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* After Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-center"
+            >
+              <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/after.png"
+                  alt="After PearlPerfect treatment - bright white teeth"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-white font-bold text-2xl drop-shadow-lg">After</p>
+                    <p className="text-white/90 text-lg mt-2 drop-shadow-lg">PearlPerfect results</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Desktop Table */}
         <div className="hidden lg:block">
           <motion.div
@@ -129,13 +191,13 @@ export default function Comparison() {
 
             {/* Rows */}
             <div className="divide-y divide-gray-200">
-              {comparisonData.map((row, rowIndex) => (
+              {comparisonData.map((row) => (
                 <motion.div
                   key={row.feature}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: rowIndex * 0.05 }}
+                  transition={{ duration: 0.4 }}
                   className="grid grid-cols-5 gap-4 p-6 hover:bg-gray-50 transition-colors"
                 >
                   <div className="text-left">
@@ -188,7 +250,7 @@ export default function Comparison() {
               </div>
 
               <div className="space-y-4">
-                {comparisonData.map((row, rowIndex) => (
+                {comparisonData.map((row) => (
                   <div key={row.feature} className="flex justify-between items-center">
                     <span className="text-pp-ink-soft font-medium">{row.feature}</span>
                     <span className={`font-semibold ${
