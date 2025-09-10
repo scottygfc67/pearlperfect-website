@@ -32,7 +32,7 @@ export default function HowItWorks() {
           </div>
 
           <div className="bg-gradient-to-r from-purple-600 to-purple-400 rounded-2xl p-8 text-white mb-12">
-            <h3 className="text-2xl font-bold mb-6">✨ What's inside the strips?</h3>
+            <h3 className="text-2xl font-bold mb-6">✨ What&apos;s inside the strips?</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
@@ -160,7 +160,7 @@ export default function HowItWorks() {
                   <ul className="space-y-2 text-gray-700 mb-4">
                     <li>• After 14 minutes, gently peel off both strips.</li>
                     <li>• Rinse your mouth with water or brush lightly.</li>
-                    <li>• You'll feel instantly fresher — and see results even after 1 use.</li>
+                    <li>• You&apos;ll feel instantly fresher — and see results even after 1 use.</li>
                   </ul>
                   <p className="text-sm text-gray-500 italic">✨ You may feel a slight &quot;squeaky clean&quot; sensation — that&apos;s the magic.</p>
                 </div>
@@ -174,7 +174,7 @@ export default function HowItWorks() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold font-heading text-gray-900 text-center mb-12">
-            📈 When You'll See Results
+            📈 When You&apos;ll See Results
           </h2>
           <p className="text-lg text-gray-700 text-center mb-8">
             Most users see visible improvement after just <strong>1–2 uses</strong>.
@@ -333,7 +333,7 @@ export default function HowItWorks() {
             🪞 Designed for Your Real Life
           </h2>
           <p className="text-lg text-gray-700 mb-8">
-            We built PearlPerfect V34 to fit into your actual routine. It's:
+            We built PearlPerfect V34 to fit into your actual routine. It&apos;s:
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -380,7 +380,7 @@ export default function HowItWorks() {
                 ))}
               </div>
               <blockquote className="text-gray-700 mb-4 italic">
-                "I drink black coffee daily. I used these strips for 4 days and my friends noticed immediately. No pain at all!"
+                &quot;I drink black coffee daily. I used these strips for 4 days and my friends noticed immediately. No pain at all!&quot;
               </blockquote>
               <cite className="text-sm text-gray-500">— Verified Review (Emily G.)</cite>
             </div>
@@ -392,7 +392,7 @@ export default function HowItWorks() {
                 ))}
               </div>
               <blockquote className="text-gray-700 mb-4 italic">
-                "I've tried everything from LED trays to messy gels — this was easier and faster. My smile looks filtered in real life."
+                &quot;I&apos;ve tried everything from LED trays to messy gels — this was easier and faster. My smile looks filtered in real life.&quot;
               </blockquote>
               <cite className="text-sm text-gray-500">— Verified Review (Josh T.)</cite>
             </div>
@@ -407,7 +407,7 @@ export default function HowItWorks() {
             Ready to Transform Your Smile?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands who've discovered the PearlPerfect difference
+            Join thousands who&apos;ve discovered the PearlPerfect difference
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg">

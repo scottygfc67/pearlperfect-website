@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { getProductById, toGid, toVariantGid } from '@/lib/shopify-legacy';
 import ProductPageClient from '../../product/[handle]/ProductPageClient';
 
@@ -8,7 +7,7 @@ interface ProductPageProps {
   };
 }
 
-export async function generateMetadata({ params }: ProductPageProps) {
+export async function generateMetadata() {
   try {
     const productId = process.env.SHOPIFY_PRODUCT_ID;
     if (!productId) {
@@ -56,6 +55,16 @@ const fallbackProduct = {
   featuredImage: {
     url: 'https://images.unsplash.com/photo-1606811841689-23dfddceeee1?w=800&h=800&fit=crop&crop=center',
     altText: 'PearlPerfect V34 Teeth Whitening Strips'
+  },
+  priceRange: {
+    minVariantPrice: {
+      amount: '29.99',
+      currencyCode: 'USD'
+    },
+    maxVariantPrice: {
+      amount: '29.99',
+      currencyCode: 'USD'
+    }
   },
   media: {
     edges: [
@@ -143,7 +152,7 @@ const fallbackProduct = {
   }
 };
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage() {
   try {
     console.log('Attempting to fetch product from Shopify using legacy API...');
     
@@ -154,6 +163,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
     
     const gid = toGid(productId);
     const legacyProduct = await getProductById(gid);
+    
+    // Get the specific variant ID from environment
+    const variantId = process.env.SHOPIFY_VARIANT_ID;
+    const selectedVariant = variantId ? 
+      legacyProduct.variants.find(v => v.id === toVariantGid(variantId)) || legacyProduct.variants[0] :
+      legacyProduct.variants[0];
     
     // Convert legacy product to the format expected by ProductPageClient
     const product = {
@@ -215,6 +230,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
             }
           }
         }))
+      },
+      priceRange: {
+        minVariantPrice: {
+          amount: selectedVariant.price.amount.toString(),
+          currencyCode: selectedVariant.price.currencyCode
+        },
+        maxVariantPrice: {
+          amount: selectedVariant.price.amount.toString(),
+          currencyCode: selectedVariant.price.currencyCode
+        }
       }
     };
     

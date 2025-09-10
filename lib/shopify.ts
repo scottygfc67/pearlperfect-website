@@ -14,10 +14,6 @@ interface UserError {
   message: string;
 }
 
-interface ShopifyResponseWithUserErrors<T> {
-  data: T;
-  userErrors: UserError[];
-}
 
 // GraphQL client
 async function sfy<T>(query: string, variables?: Record<string, unknown>): Promise<T> {

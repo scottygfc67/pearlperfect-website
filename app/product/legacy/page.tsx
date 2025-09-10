@@ -1,4 +1,4 @@
-import { getProductById, toGid } from "@/lib/shopify-legacy";
+import { getProductById, toGid, toVariantGid } from "@/lib/shopify-legacy";
 import LegacyProductView from "@/components/LegacyProductView";
 
 export default async function LegacyProductPage() {
@@ -7,6 +7,7 @@ export default async function LegacyProductPage() {
   if (!process.env.SHOPIFY_DOMAIN) missingEnvs.push('SHOPIFY_DOMAIN');
   if (!process.env.SHOPIFY_ACCESS_TOKEN) missingEnvs.push('SHOPIFY_ACCESS_TOKEN');
   if (!process.env.SHOPIFY_PRODUCT_ID) missingEnvs.push('SHOPIFY_PRODUCT_ID');
+  if (!process.env.SHOPIFY_VARIANT_ID) missingEnvs.push('SHOPIFY_VARIANT_ID');
 
   if (missingEnvs.length > 0) {
     return (
@@ -59,6 +60,7 @@ export default async function LegacyProductPage() {
             <p className="text-yellow-800 font-medium">Debug Info:</p>
             <p className="text-yellow-700 text-sm mt-1">
               Product ID: <code>{process.env.SHOPIFY_PRODUCT_ID}</code><br/>
+              Variant ID: <code>{process.env.SHOPIFY_VARIANT_ID}</code><br/>
               Store Domain: <code>{process.env.SHOPIFY_DOMAIN}</code><br/>
               Error: {error instanceof Error ? error.message : 'Unknown error'}
             </p>
