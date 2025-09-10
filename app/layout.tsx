@@ -48,6 +48,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <StructuredData />
+      </head>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
+      >
         {/* Gooey blob SVG filter */}
         <svg width="0" height="0" style={{ position: "absolute" }}>
           <defs>
@@ -59,11 +64,6 @@ export default function RootLayout({
             </filter>
           </defs>
         </svg>
-        <StructuredData />
-      </head>
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
-      >
         {children}
       </body>
     </html>
