@@ -1,11 +1,6 @@
 import { getProductById, toGid, toVariantGid } from '@/lib/shopify-legacy';
 import ProductPageClient from '../../product/[handle]/ProductPageClient';
 
-interface ProductPageProps {
-  params: {
-    handle: string;
-  };
-}
 
 export async function generateMetadata() {
   try {

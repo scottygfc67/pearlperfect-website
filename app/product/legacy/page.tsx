@@ -1,4 +1,4 @@
-import { getProductById, toGid, toVariantGid } from "@/lib/shopify-legacy";
+import { getProductById, toGid } from "@/lib/shopify-legacy";
 import LegacyProductView from "@/components/LegacyProductView";
 
 export default async function LegacyProductPage() {
