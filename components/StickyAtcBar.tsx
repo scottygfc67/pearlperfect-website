@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Plus, Minus } from 'lucide-react';
+import Image from 'next/image';
 import { Product, ProductVariant, CartLineInput } from '@/lib/shopify';
 import { getCartIdClient, setCartIdClient } from '@/lib/cart-cookie';
 import MiniCart from './MiniCart';
@@ -17,8 +18,7 @@ interface StickyAtcBarProps {
 export default function StickyAtcBar({ 
   product, 
   variants, 
-  selectedVariantId, 
-  onVariantChange 
+  selectedVariantId
 }: StickyAtcBarProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -60,7 +60,9 @@ export default function StickyAtcBar({
         if (!createResult.success) throw new Error(createResult.error);
         
         cartId = createResult.cartId;
-        setCartIdClient(cartId);
+        if (cartId) {
+          setCartIdClient(cartId);
+        }
       }
 
       // Add line to cart
@@ -82,8 +84,8 @@ export default function StickyAtcBar({
       setIsMiniCartOpen(true);
 
       // Analytics
-      if (typeof window !== 'undefined' && window.dataLayer) {
-        window.dataLayer.push({
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
           event: 'add_to_cart',
           currency: price?.currencyCode,
           value: parseFloat(price?.amount || '0') * quantity,
@@ -126,9 +128,11 @@ export default function StickyAtcBar({
             <div className="flex items-center space-x-3 flex-1 min-w-0">
               <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                 {selectedVariant?.image && (
-                  <img
+                  <Image
                     src={selectedVariant.image.url}
                     alt={selectedVariant.image.altText}
+                    width={48}
+                    height={48}
                     className="w-full h-full object-cover"
                   />
                 )}

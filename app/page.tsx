@@ -30,13 +30,13 @@ export default function Home() {
           href="/products/v34-teeth-whitening-strips"
           className="block bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-purple-700 transition-colors text-sm font-medium"
         >
-          V34 Product (Shopify)
+          V34 Product (Legacy API)
         </Link>
         <Link 
-          href="/product/v34-teeth-whitening-strips"
+          href="/product/legacy"
           className="block bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors text-sm font-medium"
         >
-          Real Product (Shopify)
+          Legacy Product Test
         </Link>
       </div>
     </div>

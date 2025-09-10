@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type ShadeId = "A1"|"A2"|"A3"|"A3_5"|"A4"|"B1"|"B2"|"B3"|"B4"|"C1"|"C2"|"C3"|"C4"|"D1"|"D2"|"D3"|"D4";
 
@@ -139,7 +139,7 @@ export default function FindYourFutureShade({
     <section 
       className="py-16 px-6"
       style={{
-        background: 'linear-gradient(180deg,#E195F2 0%, #9C5AF5 20%, #5B2EEA 60%, #4622C9 100%)'
+        background: 'linear-gradient(180deg,#7814D4 0%, #8F11EC 50%, #B565FF 100%)'
       }}
     >
       <div className="max-w-4xl mx-auto">

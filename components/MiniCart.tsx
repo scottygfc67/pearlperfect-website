@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
-import { Cart, CartLine } from '@/lib/shopify';
+import Image from 'next/image';
+import { Cart } from '@/lib/shopify';
 import { getCartIdClient } from '@/lib/cart-cookie';
 
 interface MiniCartProps {
@@ -155,9 +156,11 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
                     >
                       {/* Product Image */}
                       <div className="w-16 h-16 bg-white rounded-lg overflow-hidden flex-shrink-0">
-                        <img
+                        <Image
                           src={line.merchandise.image.url}
                           alt={line.merchandise.image.altText}
+                          width={64}
+                          height={64}
                           className="w-full h-full object-cover"
                         />
                       </div>

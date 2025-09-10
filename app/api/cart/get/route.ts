@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const clientCartId = searchParams.get('id');
 
     // Use client cart ID or get from server cookie
-    const cartId = clientCartId || getCartId();
+    const cartId = clientCartId || (await getCartId());
 
     if (!cartId) {
       return NextResponse.json(

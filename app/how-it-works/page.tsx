@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Check, Clock, Shield, Sparkles, Zap, Star, ArrowRight } from 'lucide-react';
+import { Check, Clock, Shield, Sparkles, Zap, Star } from 'lucide-react';
 
 export default function HowItWorks() {
   return (
@@ -14,7 +14,7 @@ export default function HowItWorks() {
             🦷 How PearlPerfect V34 Works
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Welcome to your brightest smile yet — here's exactly how PearlPerfect V34 Whitening Strips deliver professional-grade whitening, at home, without sensitivity.
+            Welcome to your brightest smile yet — here&apos;s exactly how PearlPerfect V34 Whitening Strips deliver professional-grade whitening, at home, without sensitivity.
           </p>
         </div>
       </section>
@@ -72,9 +72,9 @@ export default function HowItWorks() {
           </div>
 
           <div className="bg-gray-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">💡 Why it works (and why it's different)</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">💡 Why it works (and why it&apos;s different)</h3>
             <p className="text-gray-700 mb-6">
-              Most whitening products use either weak formulas that don't deliver real results, or harsh gels and trays that irritate your teeth.
+              Most whitening products use either weak formulas that don&apos;t deliver real results, or harsh gels and trays that irritate your teeth.
             </p>
             <div className="bg-white rounded-xl p-6 border-l-4 border-purple-500">
               <p className="text-lg font-semibold text-gray-900 mb-4">PearlPerfect V34 strips use a dual-action system:</p>
@@ -142,9 +142,9 @@ export default function HowItWorks() {
                   <ul className="space-y-2 text-gray-700 mb-4">
                     <li>• The <strong>active ingredients</strong> dissolve surface-level and deep-set stains.</li>
                     <li>• The <strong>hydrogel layer</strong> keeps the strip firmly in place — no sliding, no drooling.</li>
-                    <li>• You can <strong>talk, scroll, or chill</strong> — it's barely noticeable.</li>
+                    <li>• You can <strong>talk, scroll, or chill</strong> — it&apos;s barely noticeable.</li>
                   </ul>
-                  <p className="text-sm text-gray-500 italic">🧪 We call this the "Invisible Strip Effect".</p>
+                  <p className="text-sm text-gray-500 italic">🧪 We call this the &quot;Invisible Strip Effect&quot;.</p>
                 </div>
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function HowItWorks() {
                     <li>• Rinse your mouth with water or brush lightly.</li>
                     <li>• You'll feel instantly fresher — and see results even after 1 use.</li>
                   </ul>
-                  <p className="text-sm text-gray-500 italic">✨ You may feel a slight "squeaky clean" sensation — that's the magic.</p>
+                  <p className="text-sm text-gray-500 italic">✨ You may feel a slight &quot;squeaky clean&quot; sensation — that&apos;s the magic.</p>
                 </div>
               </div>
             </div>

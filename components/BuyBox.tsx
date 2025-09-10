@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, Heart, Star, Shield, Truck, CreditCard } from 'lucide-react';
+import { ShoppingCart, Star, Shield, Truck, CreditCard } from 'lucide-react';
 import { Product, ProductVariant, CartLineInput } from '@/lib/shopify';
 import { getCartIdClient, setCartIdClient } from '@/lib/cart-cookie';
 import MiniCart from './MiniCart';
@@ -98,7 +98,9 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
         if (!createResult.success) throw new Error(createResult.error);
         
         cartId = createResult.cartId;
-        setCartIdClient(cartId);
+        if (cartId) {
+          setCartIdClient(cartId);
+        }
       }
 
       // Add line to cart
@@ -123,8 +125,8 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
       setIsMiniCartOpen(true);
 
       // Analytics
-      if (typeof window !== 'undefined' && window.dataLayer) {
-        window.dataLayer.push({
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
           event: 'add_to_cart',
           currency: price?.currencyCode,
           value: parseFloat(price?.amount || '0') * quantity,
@@ -166,7 +168,9 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
         if (!createResult.success) throw new Error(createResult.error);
         
         cartId = createResult.cartId;
-        setCartIdClient(cartId);
+        if (cartId) {
+          setCartIdClient(cartId);
+        }
       }
 
       // Add line to cart
@@ -186,8 +190,8 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
       if (!addResult.success) throw new Error(addResult.error);
 
       // Analytics
-      if (typeof window !== 'undefined' && window.dataLayer) {
-        window.dataLayer.push({
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
           event: 'begin_checkout',
           currency: price?.currencyCode,
           value: parseFloat(price?.amount || '0') * quantity,
@@ -299,7 +303,7 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
       </div>
 
       {/* Selling Plans (if available) */}
-      {selectedVariant?.sellingPlanAllocations.edges.length > 0 && (
+      {selectedVariant?.sellingPlanAllocations?.edges && selectedVariant.sellingPlanAllocations.edges.length > 0 && (
         <div className="mb-6">
           <h3 className="text-sm font-medium text-gray-900 mb-3">Purchase Options</h3>
           <div className="space-y-2">

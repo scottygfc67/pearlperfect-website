@@ -1,15 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star, Shield, Truck, CreditCard } from 'lucide-react';
+import { Star, Shield, Truck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Hero() {
 
-  const handleAddToCart = () => {
-    // Add to cart logic here
-    console.log('Added to cart');
-  };
 
   return (
     <section 
@@ -83,7 +79,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex justify-center items-center mb-8"
           >
             <Link href="/products/v34-teeth-whitening-strips">
               <motion.button
@@ -95,21 +91,26 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.button>
             </Link>
+          </motion.div>
 
-            {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-white/80 text-sm sm:text-base">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                <span>Enamel Safe</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Star className="w-5 h-5" />
-                <span>4.9/5 Rating</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Truck className="w-5 h-5" />
-                <span>Free Shipping</span>
-              </div>
+          {/* Trust Badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-white/80 text-sm sm:text-base"
+          >
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5" />
+              <span>Enamel Safe</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5" />
+              <span>4.9/5 Rating</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Truck className="w-5 h-5" />
+              <span>Free Shipping</span>
             </div>
           </motion.div>
         </div>

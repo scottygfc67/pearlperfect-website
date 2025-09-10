@@ -1,4 +1,4 @@
-const SHOPIFY_ENDPOINT = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`;
+const SHOPIFY_ENDPOINT = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2023-10/graphql.json`;
 
 interface ShopifyResponse<T> {
   data: T;
@@ -20,12 +20,30 @@ interface ShopifyResponseWithUserErrors<T> {
 }
 
 // GraphQL client
-async function sfy<T>(query: string, variables?: Record<string, any>): Promise<T> {
+async function sfy<T>(query: string, variables?: Record<string, unknown>): Promise<T> {
+  const accessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+  const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
+  
+  if (!accessToken) {
+    throw new Error('SHOPIFY_STOREFRONT_ACCESS_TOKEN is not set');
+  }
+  
+  if (!storeDomain) {
+    throw new Error('NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is not set');
+  }
+
+  console.log('Shopify API Debug:', {
+    endpoint: SHOPIFY_ENDPOINT,
+    hasToken: !!accessToken,
+    tokenLength: accessToken?.length,
+    storeDomain
+  });
+
   const response = await fetch(SHOPIFY_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
+      'X-Shopify-Storefront-Access-Token': accessToken,
     },
     body: JSON.stringify({ query, variables }),
   });
@@ -266,74 +284,94 @@ export async function getProductByHandle(handle: string): Promise<Product | null
 
 export async function createCart(lines?: CartLineInput[]): Promise<{ cartId: string; checkoutUrl: string; totalQuantity: number }> {
   const result = await sfy<{
-    cartCreate: ShopifyResponseWithUserErrors<{
+    cartCreate: {
       cart: {
         id: string;
         checkoutUrl: string;
         totalQuantity: number;
       };
-    }>;
+      userErrors: UserError[];
+    };
   }>(CART_CREATE_MUTATION, { lines: lines || [] });
 
   if (result.cartCreate.userErrors.length > 0) {
     throw new Error(`Cart creation failed: ${result.cartCreate.userErrors.map(e => e.message).join(', ')}`);
   }
 
-  return result.cartCreate.cart;
+  return {
+    cartId: result.cartCreate.cart.id,
+    checkoutUrl: result.cartCreate.cart.checkoutUrl,
+    totalQuantity: result.cartCreate.cart.totalQuantity
+  };
 }
 
 export async function addLines(cartId: string, lines: CartLineInput[]): Promise<{ cartId: string; checkoutUrl: string; totalQuantity: number }> {
   const result = await sfy<{
-    cartLinesAdd: ShopifyResponseWithUserErrors<{
+    cartLinesAdd: {
       cart: {
         id: string;
         checkoutUrl: string;
         totalQuantity: number;
       };
-    }>;
+      userErrors: UserError[];
+    };
   }>(CART_LINES_ADD_MUTATION, { cartId, lines });
 
   if (result.cartLinesAdd.userErrors.length > 0) {
     throw new Error(`Add lines failed: ${result.cartLinesAdd.userErrors.map(e => e.message).join(', ')}`);
   }
 
-  return result.cartLinesAdd.cart;
+  return {
+    cartId: result.cartLinesAdd.cart.id,
+    checkoutUrl: result.cartLinesAdd.cart.checkoutUrl,
+    totalQuantity: result.cartLinesAdd.cart.totalQuantity
+  };
 }
 
 export async function updateLines(cartId: string, lines: CartLineUpdateInput[]): Promise<{ cartId: string; checkoutUrl: string; totalQuantity: number }> {
   const result = await sfy<{
-    cartLinesUpdate: ShopifyResponseWithUserErrors<{
+    cartLinesUpdate: {
       cart: {
         id: string;
         checkoutUrl: string;
         totalQuantity: number;
       };
-    }>;
+      userErrors: UserError[];
+    };
   }>(CART_LINES_UPDATE_MUTATION, { cartId, lines });
 
   if (result.cartLinesUpdate.userErrors.length > 0) {
     throw new Error(`Update lines failed: ${result.cartLinesUpdate.userErrors.map(e => e.message).join(', ')}`);
   }
 
-  return result.cartLinesUpdate.cart;
+  return {
+    cartId: result.cartLinesUpdate.cart.id,
+    checkoutUrl: result.cartLinesUpdate.cart.checkoutUrl,
+    totalQuantity: result.cartLinesUpdate.cart.totalQuantity
+  };
 }
 
 export async function removeLines(cartId: string, lineIds: string[]): Promise<{ cartId: string; checkoutUrl: string; totalQuantity: number }> {
   const result = await sfy<{
-    cartLinesRemove: ShopifyResponseWithUserErrors<{
+    cartLinesRemove: {
       cart: {
         id: string;
         checkoutUrl: string;
         totalQuantity: number;
       };
-    }>;
+      userErrors: UserError[];
+    };
   }>(CART_LINES_REMOVE_MUTATION, { cartId, lineIds });
 
   if (result.cartLinesRemove.userErrors.length > 0) {
     throw new Error(`Remove lines failed: ${result.cartLinesRemove.userErrors.map(e => e.message).join(', ')}`);
   }
 
-  return result.cartLinesRemove.cart;
+  return {
+    cartId: result.cartLinesRemove.cart.id,
+    checkoutUrl: result.cartLinesRemove.cart.checkoutUrl,
+    totalQuantity: result.cartLinesRemove.cart.totalQuantity
+  };
 }
 
 export async function getCart(cartId: string): Promise<Cart | null> {

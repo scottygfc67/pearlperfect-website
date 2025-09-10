@@ -159,7 +159,7 @@ export default function FAQ() {
             ❓ Frequently Asked Questions
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Everything you need to know about PearlPerfect V34 Whitening Strips. Can't find your answer? Contact us anytime!
+            Everything you need to know about PearlPerfect V34 Whitening Strips. Can&apos;t find your answer? Contact us anytime!
           </p>
         </div>
       </section>
@@ -257,7 +257,7 @@ export default function FAQ() {
             Still Have Questions?
           </h2>
           <p className="text-lg text-gray-700 mb-8">
-            Our customer service team is here to help! Get in touch and we'll get back to you within 24 hours.
+            Our customer service team is here to help! Get in touch and we&apos;ll get back to you within 24 hours.
           </p>
           
           <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -332,7 +332,7 @@ export default function FAQ() {
                 <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
                 <div className="text-left">
                   <h3 className="font-semibold text-gray-900 mb-2">Money-Back Guarantee</h3>
-                  <p className="text-gray-700 text-sm">30-day satisfaction guarantee - if you're not happy, we'll refund you</p>
+                  <p className="text-gray-700 text-sm">30-day satisfaction guarantee - if you&apos;re not happy, we&apos;ll refund you</p>
                 </div>
               </div>
             </div>
@@ -373,7 +373,7 @@ export default function FAQ() {
             Ready to Get Your Brightest Smile?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of satisfied customers who've transformed their smiles with PearlPerfect V34
+            Join thousands of satisfied customers who&apos;ve transformed their smiles with PearlPerfect V34
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg">

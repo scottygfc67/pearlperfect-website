@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Use client cart ID or get from server cookie
-    let cartId = clientCartId || getCartId();
+    const cartId = clientCartId || (await getCartId());
     
     if (!cartId) {
       return NextResponse.json(
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const result = await updateLines(cartId, lines);
 
     // Update cart ID in cookie
-    setCartId(result.cartId);
+    await setCartId(result.cartId);
 
     return NextResponse.json({
       success: true,

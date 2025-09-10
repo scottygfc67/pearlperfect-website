@@ -3,13 +3,13 @@ import { cookies } from 'next/headers';
 const CART_COOKIE_NAME = 'pp_cart_id';
 
 // Server-side cart ID helpers
-export function getCartId(): string | null {
-  const cookieStore = cookies();
+export async function getCartId(): Promise<string | null> {
+  const cookieStore = await cookies();
   return cookieStore.get(CART_COOKIE_NAME)?.value || null;
 }
 
-export function setCartId(id: string): void {
-  const cookieStore = cookies();
+export async function setCartId(id: string): Promise<void> {
+  const cookieStore = await cookies();
   cookieStore.set(CART_COOKIE_NAME, id, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
