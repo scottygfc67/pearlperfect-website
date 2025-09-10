@@ -32,7 +32,7 @@ export default function Benefits() {
   ];
 
   return (
-    <section id="benefits" className="py-24 bg-gradient-to-br from-pp-purple-100 via-white to-pp-purple-50">
+    <section id="benefits" className="py-24 bg-gradient-to-br from-purple-100 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,10 +41,10 @@ export default function Benefits() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-heading text-pp-ink mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold font-heading text-black mb-6">
             Why V34?
           </h2>
-          <p className="text-xl text-pp-ink-soft max-w-2xl mx-auto">
+          <p className="text-xl text-black-soft max-w-2xl mx-auto">
             Experience the difference with our clinically-proven whitening strips
           </p>
         </motion.div>
@@ -75,16 +75,16 @@ export default function Benefits() {
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-pp-ink mb-3 group-hover:text-pp-purple-600 transition-colors">
+                  <h3 className="text-xl font-bold text-black mb-3 group-hover:text-purple-600 transition-colors">
                     {benefit.title}
                   </h3>
-                  <p className="text-pp-ink-soft leading-relaxed">
+                  <p className="text-black-soft leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>
 
                 {/* Hover Effect Overlay */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-pp-purple-600/5 to-pp-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-600/5 to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </motion.div>
           ))}
@@ -98,25 +98,25 @@ export default function Benefits() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-16 text-center"
         >
-          <div className="bg-pp-bg-alt rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-pp-ink mb-4">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-black mb-4">
               Clinically Tested & Dentist Approved
             </h3>
-            <p className="text-pp-ink-soft text-lg leading-relaxed">
+            <p className="text-black-soft text-lg leading-relaxed">
               Our V34 formula has been tested by dental professionals and proven to be safe for daily use. 
               The peroxide concentration is carefully calibrated to provide maximum whitening power while 
               protecting your enamel and preventing sensitivity.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4">
-              <div className="flex items-center space-x-2 text-pp-success">
+              <div className="flex items-center space-x-2 text-green-600">
                 <CheckCircle className="w-5 h-5" />
                 <span className="font-medium">FDA Approved</span>
               </div>
-              <div className="flex items-center space-x-2 text-pp-success">
+              <div className="flex items-center space-x-2 text-green-600">
                 <CheckCircle className="w-5 h-5" />
                 <span className="font-medium">Dentist Recommended</span>
               </div>
-              <div className="flex items-center space-x-2 text-pp-success">
+              <div className="flex items-center space-x-2 text-green-600">
                 <CheckCircle className="w-5 h-5" />
                 <span className="font-medium">Enamel Safe</span>
               </div>

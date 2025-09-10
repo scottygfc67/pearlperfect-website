@@ -14,7 +14,7 @@ export default function SocialProof() {
 
 
   return (
-    <section className="py-16 bg-gradient-to-r from-pp-purple-600 to-pp-purple-400">
+    <section className="py-16 bg-gradient-to-r from-purple-600 to-purple-400">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Press Logos */}
         <motion.div
@@ -24,14 +24,14 @@ export default function SocialProof() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-white/80 text-sm font-medium mb-8">
+          <p className="text-white text-sm font-medium mb-8 drop-shadow-lg">
             Featured in
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-80">
+          <div className="flex flex-wrap justify-center items-center gap-8">
             {pressLogos.map((logo) => (
               <div
                 key={logo}
-                className="text-2xl font-bold text-white grayscale hover:grayscale-0 transition-all duration-300"
+                className="text-2xl font-bold text-white grayscale hover:grayscale-0 transition-all duration-300 drop-shadow-lg"
               >
                 {logo}
               </div>

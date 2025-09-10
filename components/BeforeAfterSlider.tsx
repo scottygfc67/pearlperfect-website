@@ -9,7 +9,7 @@ export default function BeforeAfterSlider() {
   const [sliderPosition, setSliderPosition] = useState(50);
 
   return (
-    <section id="results" className="py-24 bg-gradient-to-br from-white via-pp-purple-50 to-pp-purple-100">
+    <section id="results" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header */}
         <motion.div
@@ -19,10 +19,10 @@ export default function BeforeAfterSlider() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-heading text-pp-ink mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold font-heading text-black mb-6">
             See the Results
           </h2>
-          <p className="text-xl text-pp-ink-soft max-w-2xl mx-auto">
+          <p className="text-xl text-black-soft max-w-2xl mx-auto">
             Real results from real customers. Individual results may vary.
           </p>
         </motion.div>
@@ -36,7 +36,7 @@ export default function BeforeAfterSlider() {
           className="max-w-4xl mx-auto"
         >
           <div className="bg-white rounded-3xl p-8 shadow-2xl">
-            <h3 className="text-2xl font-bold text-pp-ink text-center mb-8">
+            <h3 className="text-2xl font-bold text-black text-center mb-8">
               Before & After Comparison
             </h3>
             
@@ -78,13 +78,13 @@ export default function BeforeAfterSlider() {
 
                 {/* Slider Line */}
                 <div
-                  className="absolute top-0 bottom-0 w-1 bg-pp-purple-600 z-10 shadow-lg"
+                  className="absolute top-0 bottom-0 w-1 bg-purple-600 z-10 shadow-lg"
                   style={{ left: `${sliderPosition}%` }}
                 />
 
                 {/* Slider Handle */}
                 <div
-                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-pp-purple-600 to-pp-purple-400 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-xl hover:scale-110 transition-transform"
+                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-xl hover:scale-110 transition-transform"
                   style={{ left: `${sliderPosition}%` }}
                   onMouseDown={() => {
                     const handleMouseMove = (e: MouseEvent) => {
@@ -121,17 +121,17 @@ export default function BeforeAfterSlider() {
 
               {/* Instructions */}
               <div className="mt-6 text-center">
-                <p className="text-pp-ink-soft text-lg">
+                <p className="text-black-soft text-lg">
                   Drag the slider to compare before and after results
                 </p>
                 <div className="mt-4 flex justify-center space-x-8">
                   <div className="flex items-center space-x-2">
                     <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-                    <span className="text-pp-ink-soft">Before treatment</span>
+                    <span className="text-black-soft">Before treatment</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 bg-white border-2 border-pp-purple-300 rounded-full"></div>
-                    <span className="text-pp-ink-soft">After PearlPerfect</span>
+                    <div className="w-4 h-4 bg-white border-2 border-purple-300 rounded-full"></div>
+                    <span className="text-black-soft">After PearlPerfect</span>
                   </div>
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function BeforeAfterSlider() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <p className="text-sm text-pp-ink-soft max-w-4xl mx-auto">
+          <p className="text-sm text-black-soft max-w-4xl mx-auto">
             <strong>Disclaimer:</strong> Individual results may vary. Results shown are from actual customers 
             but are not typical. Consult with your dentist if you have concerns about teeth whitening.
           </p>

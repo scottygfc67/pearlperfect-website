@@ -14,7 +14,7 @@ export default function FinalCTA() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-pp-purple-600 to-pp-purple-400 text-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-purple-600 to-purple-400 text-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -82,7 +82,7 @@ export default function FinalCTA() {
               {/* CTA Buttons */}
               <div className="space-y-4">
                 <motion.button
-                  className="w-full bg-white text-pp-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+                  className="w-full bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -90,7 +90,7 @@ export default function FinalCTA() {
                 </motion.button>
                 
                 <motion.button
-                  className="w-full border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-pp-purple-600 transition-colors"
+                  className="w-full border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-purple-600 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

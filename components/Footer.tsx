@@ -49,7 +49,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-pp-ink text-white">
+    <footer className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Main Footer Content */}
         <div className="py-16">
@@ -78,12 +78,12 @@ export default function Footer() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="flex-1 px-4 py-3 rounded-l-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pp-purple-400"
+                      className="flex-1 px-4 py-3 rounded-l-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400"
                       required
                     />
                     <button
                       type="submit"
-                      className="bg-pp-purple-600 hover:bg-pp-purple-700 px-6 py-3 rounded-r-lg font-semibold transition-colors"
+                      className="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-r-lg font-semibold transition-colors"
                     >
                       Subscribe
                     </button>
@@ -102,7 +102,7 @@ export default function Footer() {
                     <a
                       key={social.label}
                       href={social.href}
-                      className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-pp-purple-600 transition-colors"
+                      className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-purple-600 transition-colors"
                       aria-label={social.label}
                     >
                       <social.icon className="w-5 h-5" />
@@ -149,21 +149,21 @@ export default function Footer() {
         >
           <div className="grid md:grid-cols-3 gap-8">
             <div className="flex items-center space-x-3">
-              <Mail className="w-5 h-5 text-pp-purple-400" />
+              <Mail className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="text-sm text-gray-400">Email</p>
                 <p className="text-white">support@pearlperfect.com</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <Phone className="w-5 h-5 text-pp-purple-400" />
+              <Phone className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="text-sm text-gray-400">Phone</p>
                 <p className="text-white">1-800-PEARL-1</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <MapPin className="w-5 h-5 text-pp-purple-400" />
+              <MapPin className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="text-sm text-gray-400">Location</p>
                 <p className="text-white">San Francisco, CA</p>

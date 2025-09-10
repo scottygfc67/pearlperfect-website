@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, User, ShoppingCart, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,12 +20,12 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Utility Bar */}
-      <motion.div
+      {/* Utility Bar - Hidden */}
+      {/* <motion.div
         initial={{ y: -36, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-pp-purple-700 text-white text-sm py-2 px-4 text-center relative overflow-hidden"
+        className="bg-white text-black text-sm py-2 px-4 text-center relative overflow-hidden border-b border-gray-200"
       >
         <div className="flex items-center justify-center space-x-6 animate-marquee">
           <span>Free shipping over $35</span>
@@ -33,7 +34,7 @@ export default function Navbar() {
           <span>•</span>
           <span>30-day money-back guarantee</span>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Main Navbar */}
       <motion.nav
@@ -42,7 +43,10 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         className="sticky top-0 z-50 h-18 border-b border-white/20 shadow-lg"
         style={{
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%)',
+          background: `
+            linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%),
+            linear-gradient(135deg, #FF6B9D 0%, #C084FC 25%, #A855F7 50%, #8B5CF6 75%, #F3E8FF 100%)
+          `,
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
           border: '1px solid rgba(255,255,255,0.2)',
@@ -53,8 +57,14 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className="text-2xl font-bold font-heading text-white drop-shadow-lg">
-                PearlPerfect
+              <Link href="/" className="block">
+                <Image 
+                  src="/logo.png" 
+                  alt="PearlPerfect" 
+                  width={150} 
+                  height={50} 
+                  className="h-12 w-auto drop-shadow-lg"
+                />
               </Link>
             </div>
 
@@ -86,7 +96,7 @@ export default function Navbar() {
               {/* Cart */}
               <button className="relative p-2 text-white/80 hover:text-white transition-colors drop-shadow-sm">
                 <ShoppingCart size={20} />
-                <span className="absolute -top-1 -right-1 bg-white text-pp-purple-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
+                <span className="absolute -top-1 -right-1 bg-white text-purple-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
                   0
                 </span>
               </button>
@@ -121,7 +131,10 @@ export default function Navbar() {
               transition={{ duration: 0.3 }}
               className="lg:hidden border-t border-white/20"
               style={{
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%)',
+                background: `
+                  linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%),
+                  linear-gradient(135deg, #FF6B9D 0%, #C084FC 25%, #A855F7 50%, #8B5CF6 75%, #F3E8FF 100%)
+                `,
                 backdropFilter: 'blur(24px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(24px) saturate(180%)',
                 border: '1px solid rgba(255,255,255,0.2)',

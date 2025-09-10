@@ -3,9 +3,7 @@ import Hero from '@/components/Hero';
 import ProductShowcase from '@/components/ProductShowcase';
 import SocialProof from '@/components/SocialProof';
 import HowItWorks from '@/components/HowItWorks';
-import ShadeFinder from '@/components/ShadeFinder';
-import BeforeAfterSlider from '@/components/BeforeAfterSlider';
-import Comparison from '@/components/Comparison';
+import FindYourFutureShade from '@/components/FindYourFutureShade';
 import FAQ from '@/components/FAQ';
 import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
@@ -19,9 +17,7 @@ export default function Home() {
       <ProductShowcase />
       <SocialProof />
       <HowItWorks />
-      <ShadeFinder />
-      <BeforeAfterSlider />
-      <Comparison />
+      <FindYourFutureShade />
       <FAQ />
       <FinalCTA />
       <Footer />

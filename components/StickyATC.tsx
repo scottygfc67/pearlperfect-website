@@ -40,19 +40,19 @@ export default function StickyATC() {
             <div className="flex items-center justify-between">
               {/* Product Info */}
               <div className="flex items-center space-x-3 flex-1">
-                <div className="w-12 h-12 bg-pp-purple-600 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">V34</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-pp-ink text-sm truncate">
+                  <h3 className="font-semibold text-black text-sm truncate">
                     PearlPerfect V34 Strips
                   </h3>
                   <div className="flex items-center space-x-2">
-                    <span className="text-lg font-bold text-pp-ink">
+                    <span className="text-lg font-bold text-black">
                       ${price}
                     </span>
                     {isSubscribed && (
-                      <span className="text-xs text-pp-success bg-pp-success/10 px-2 py-1 rounded">
+                      <span className="text-xs text-green-600 bg-green-600/10 px-2 py-1 rounded">
                         Save 10%
                       </span>
                     )}
@@ -85,7 +85,7 @@ export default function StickyATC() {
                 <button
                   onClick={() => setIsSubscribed(!isSubscribed)}
                   className={`w-10 h-6 rounded-full transition-colors ${
-                    isSubscribed ? 'bg-pp-purple-600' : 'bg-gray-300'
+                    isSubscribed ? 'bg-purple-600' : 'bg-gray-300'
                   }`}
                 >
                   <div
@@ -98,7 +98,7 @@ export default function StickyATC() {
                 {/* Add to Cart Button */}
                 <motion.button
                   onClick={handleAddToCart}
-                  className="bg-pp-purple-600 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center space-x-2 hover:bg-pp-purple-700 transition-colors"
+                  className="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center space-x-2 hover:bg-purple-700 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -116,7 +116,7 @@ export default function StickyATC() {
                 exit={{ opacity: 0, height: 0 }}
                 className="mt-3 pt-3 border-t border-gray-100"
               >
-                <p className="text-xs text-pp-success text-center">
+                <p className="text-xs text-green-600 text-center">
                   ✓ Subscribe and save 10% on every order
                 </p>
               </motion.div>

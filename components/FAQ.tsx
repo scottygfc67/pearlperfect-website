@@ -51,7 +51,7 @@ export default function FAQ() {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-gradient-to-br from-white via-pp-purple-50 to-pp-purple-100">
+    <section id="faq" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,10 +60,10 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-heading text-pp-ink mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold font-heading text-black mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-pp-ink-soft max-w-2xl mx-auto">
+          <p className="text-xl text-black max-w-2xl mx-auto">
             Everything you need to know about PearlPerfect V34 whitening strips
           </p>
         </motion.div>
@@ -82,14 +82,14 @@ export default function FAQ() {
                 onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
                 className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
-                <h3 className="text-lg font-semibold text-pp-ink pr-4">
+                <h3 className="text-lg font-semibold text-black pr-4">
                   {faq.question}
                 </h3>
                 <div className="flex-shrink-0">
                   {openFAQ === index ? (
-                    <Minus className="w-5 h-5 text-pp-purple-600" />
+                    <Minus className="w-5 h-5 text-purple-600" />
                   ) : (
-                    <Plus className="w-5 h-5 text-pp-ink-soft" />
+                    <Plus className="w-5 h-5 text-black-soft" />
                   )}
                 </div>
               </button>
@@ -105,7 +105,7 @@ export default function FAQ() {
                   >
                     <div className="px-6 pb-6">
                       <div className="pt-4 border-t border-gray-100">
-                        <p className="text-pp-ink-soft leading-relaxed">
+                        <p className="text-black leading-relaxed">
                           {faq.answer}
                         </p>
                       </div>
@@ -125,18 +125,18 @@ export default function FAQ() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <div className="bg-pp-bg-alt rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-pp-ink mb-4">
+          <div className="bg-gray-50 rounded-2xl p-8">
+            <h3 className="text-2xl font-bold text-black mb-4">
               Still have questions?
             </h3>
-            <p className="text-pp-ink-soft mb-6">
+            <p className="text-black-soft mb-6">
               Our customer support team is here to help you get the best results
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-pp-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-pp-purple-700 transition-colors">
+              <button className="bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors">
                 Contact Support
               </button>
-              <button className="border-2 border-pp-purple-600 text-pp-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-pp-purple-600 hover:text-white transition-colors">
+              <button className="border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-600 hover:text-white transition-colors">
                 Live Chat
               </button>
             </div>

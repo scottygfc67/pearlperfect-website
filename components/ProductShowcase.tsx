@@ -25,7 +25,7 @@ export default function ProductShowcase() {
   ];
 
   return (
-    <section id="shop" className="py-20 bg-gradient-to-br from-pp-purple-50 via-white to-pp-purple-100">
+    <section id="shop" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Product Image */}
@@ -46,7 +46,7 @@ export default function ProductShowcase() {
               />
               
               {/* Product Badge */}
-              <div className="absolute top-6 left-6 bg-gradient-to-r from-pp-purple-600 to-pp-purple-400 text-white px-4 py-2 rounded-full font-bold text-sm">
+              <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-600 to-purple-400 text-white px-4 py-2 rounded-full font-bold text-sm">
                 ✨ Best Seller
               </div>
               
@@ -82,10 +82,10 @@ export default function ProductShowcase() {
                       transition={{ duration: 0.4, delay: index * 0.1 }}
                       className="text-center"
                     >
-                      <div className="w-12 h-12 bg-gradient-to-br from-pp-purple-600 to-pp-purple-400 rounded-full flex items-center justify-center mx-auto mb-2">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-2">
                         <feature.icon className="w-6 h-6 text-white" />
                       </div>
-                      <p className="text-sm font-semibold text-pp-ink">{feature.text}</p>
+                      <p className="text-sm font-semibold text-black">{feature.text}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -103,13 +103,13 @@ export default function ProductShowcase() {
           >
             {/* Product Title */}
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold font-heading text-pp-ink mb-4">
+              <h1 className="text-4xl lg:text-5xl font-bold font-heading text-black mb-4">
                 PearlPerfect V34
-                <span className="block bg-gradient-to-r from-pp-purple-600 to-pp-purple-400 bg-clip-text text-transparent">
+                <span className="block text-black">
                   Whitening Strips
                 </span>
               </h1>
-              <p className="text-xl text-pp-ink-soft leading-relaxed">
+              <p className="text-xl text-black leading-relaxed">
                 Professional-grade teeth whitening strips that deliver visible results in just 14 minutes. 
                 Safe, effective, and dentist-approved. 💜
               </p>
@@ -119,23 +119,23 @@ export default function ProductShowcase() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-pp-warning text-pp-warning" />
+                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <span className="text-pp-ink-soft font-medium">
-                4.9/5 from <span className="font-bold text-pp-ink">12,842+</span> verified reviews
+              <span className="text-black font-medium">
+                4.9/5 from <span className="font-bold text-black">12,842+</span> verified reviews
               </span>
             </div>
 
             {/* Price */}
             <div className="flex items-center space-x-4">
-              <div className="text-4xl font-bold text-pp-ink">
+              <div className="text-4xl font-bold text-black">
                 ${isSubscribed ? '44.99' : '49.99'}
               </div>
-              <div className="text-lg text-pp-ink-soft line-through">
+              <div className="text-lg text-black line-through">
                 $69.99
               </div>
-              <div className="bg-gradient-to-r from-pp-purple-600 to-pp-purple-400 text-white px-3 py-1 rounded-full text-sm font-bold">
+              <div className="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-3 py-1 rounded-full text-sm font-bold">
                 Save 29% 🔥
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function ProductShowcase() {
             <div className="space-y-6">
               {/* Quantity Selector */}
               <div>
-                <label className="block text-sm font-semibold text-pp-ink mb-3">
+                <label className="block text-sm font-semibold text-black mb-3">
                   Quantity
                 </label>
                 <div className="flex items-center space-x-4">
@@ -163,23 +163,23 @@ export default function ProductShowcase() {
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
-                  <div className="text-sm text-pp-ink-soft">
+                  <div className="text-sm text-black">
                     {quantity} box{quantity > 1 ? 'es' : ''} • {quantity * 14} strips
                   </div>
                 </div>
               </div>
 
               {/* Subscription Toggle */}
-              <div className="bg-gradient-to-r from-pp-purple-50 to-pp-purple-100 rounded-2xl p-6">
+              <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-bold text-pp-ink">Subscribe & Save 10%</h3>
-                    <p className="text-sm text-pp-ink-soft">Get fresh strips every month</p>
+                    <h3 className="font-bold text-black">Subscribe & Save 10%</h3>
+                    <p className="text-sm text-black">Get fresh strips every month</p>
                   </div>
                   <button
                     onClick={() => setIsSubscribed(!isSubscribed)}
                     className={`relative w-16 h-8 rounded-full transition-colors ${
-                      isSubscribed ? 'bg-pp-purple-600' : 'bg-gray-300'
+                      isSubscribed ? 'bg-purple-600' : 'bg-gray-300'
                     }`}
                   >
                     <div
@@ -195,7 +195,7 @@ export default function ProductShowcase() {
                     animate={{ opacity: 1, height: 'auto' }}
                     className="mt-4 p-3 bg-white rounded-lg"
                   >
-                    <p className="text-sm text-pp-success font-semibold">
+                    <p className="text-sm text-green-600 font-semibold">
                       ✓ You&apos;ll save $5.00 on every order!
                     </p>
                   </motion.div>
@@ -207,7 +207,7 @@ export default function ProductShowcase() {
             <div className="space-y-4">
               <motion.button
                 onClick={handleAddToCart}
-                className="w-full bg-gradient-to-r from-pp-purple-600 to-pp-purple-400 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -216,7 +216,7 @@ export default function ProductShowcase() {
               </motion.button>
               
               <motion.button
-                className="w-full border-2 border-pp-purple-600 text-pp-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-pp-purple-600 hover:text-white transition-all duration-300"
+                className="w-full border-2 border-black text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-black hover:text-white transition-all duration-300"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -225,17 +225,17 @@ export default function ProductShowcase() {
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap items-center gap-6 text-sm text-pp-ink-soft pt-4 border-t border-gray-200">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-black pt-4 border-t border-gray-200">
               <div className="flex items-center space-x-2">
-                <Shield className="w-4 h-4 text-pp-success" />
+                <Shield className="w-4 h-4 text-green-600" />
                 <span>30-day money-back</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Zap className="w-4 h-4 text-pp-purple-600" />
+                <Zap className="w-4 h-4 text-purple-600" />
                 <span>Free shipping over $35</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Sparkles className="w-4 h-4 text-pp-purple-600" />
+                <Sparkles className="w-4 h-4 text-purple-600" />
                 <span>Secure checkout</span>
               </div>
             </div>
