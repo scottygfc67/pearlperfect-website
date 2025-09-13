@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Star, Shield, Truck, CreditCard } from 'lucide-react';
 import { Product, ProductVariant, CartLineInput } from '@/lib/shopify';
 import { getCartIdClient, setCartIdClient } from '@/lib/cart-cookie';
+import { directCheckoutAction } from '@/app/actions/checkout';
 import MiniCart from './MiniCart';
 
 interface BuyBoxProps {
@@ -78,7 +79,7 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
   };
 
   const handleAddToCart = async () => {
-    if (!selectedVariant || !isAvailable) return;
+    if (!selectedVariant || !isAvailable || isAddingToCart) return;
 
     setIsAddingToCart(true);
     
@@ -109,6 +110,8 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
         quantity,
         sellingPlanId
       }];
+
+      console.log('Adding to cart:', { cartId, lines, quantity });
 
       const addResponse = await fetch('/api/cart/add', {
         method: 'POST',
@@ -154,41 +157,6 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
     setIsBuyingNow(true);
     
     try {
-      // Get or create cart ID
-      let cartId = getCartIdClient();
-      
-      if (!cartId) {
-        const createResponse = await fetch('/api/cart/create', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lines: [] })
-        });
-        
-        const createResult = await createResponse.json();
-        if (!createResult.success) throw new Error(createResult.error);
-        
-        cartId = createResult.cartId;
-        if (cartId) {
-          setCartIdClient(cartId);
-        }
-      }
-
-      // Add line to cart
-      const lines: CartLineInput[] = [{
-        merchandiseId: selectedVariant.id,
-        quantity,
-        sellingPlanId
-      }];
-
-      const addResponse = await fetch('/api/cart/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cartId, lines })
-      });
-
-      const addResult = await addResponse.json();
-      if (!addResult.success) throw new Error(addResult.error);
-
       // Analytics
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
@@ -205,8 +173,8 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
         });
       }
 
-      // Redirect to checkout
-      window.location.href = addResult.checkoutUrl;
+      // Use direct checkout action
+      await directCheckoutAction(selectedVariant.id, quantity);
 
     } catch (error) {
       console.error('Buy now error:', error);

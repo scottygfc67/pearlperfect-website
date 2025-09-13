@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { removeLines } from '@/lib/shopify';
+import { removeLines } from '@/lib/shopify-cart';
 import { getCartId, setCartId } from '@/lib/cart-server';
 
 export async function POST(request: NextRequest) {
@@ -25,15 +25,18 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await removeLines(cartId, lineIds);
+    
+    console.log('Cart REMOVE API - removeLines result:', result);
 
     // Update cart ID in cookie
     await setCartId(result.cartId);
+    
+    console.log('Cart REMOVE API - updated cart ID in cookie:', result.cartId);
 
     return NextResponse.json({
       success: true,
       cartId: result.cartId,
       checkoutUrl: result.checkoutUrl,
-      totalQuantity: result.totalQuantity,
     });
   } catch (error) {
     console.error('Remove lines error:', error);

@@ -2,11 +2,23 @@
 
 import { motion } from 'framer-motion';
 import { Shield, Truck, CreditCard, Award, Heart, Leaf } from 'lucide-react';
+import { addToCart, getDefaultVariantId } from '@/lib/cart-utils';
+import { directCheckoutAction } from '@/app/actions/checkout';
 
 export default function FinalCTA() {
+  const handleBuyNow = async () => {
+    const variantId = getDefaultVariantId();
+    await directCheckoutAction(variantId, 1);
+  };
+
+  const handleSubscribe = async () => {
+    const variantId = getDefaultVariantId();
+    await directCheckoutAction(variantId, 1);
+  };
+
   const trustBadges = [
     { icon: Shield, text: '30-day money-back guarantee' },
-    { icon: Truck, text: 'Free shipping over $35' },
+    { icon: Truck, text: 'Free shipping over £35' },
     { icon: CreditCard, text: 'Secure checkout' },
     { icon: Award, text: 'Dentist recommended' },
     { icon: Heart, text: 'Cruelty-free' },
@@ -71,8 +83,8 @@ export default function FinalCTA() {
                 </div>
                 
                 <div className="flex items-center space-x-4 mb-6">
-                  <div className="text-4xl font-bold">$49.99</div>
-                  <div className="text-lg opacity-75 line-through">$69.99</div>
+                  <div className="text-4xl font-bold">£49.99</div>
+                  <div className="text-lg opacity-75 line-through">£69.99</div>
                   <div className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
                     Save 29%
                   </div>
@@ -82,6 +94,7 @@ export default function FinalCTA() {
               {/* CTA Buttons */}
               <div className="space-y-4">
                 <motion.button
+                  onClick={handleBuyNow}
                   className="w-full bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -90,6 +103,7 @@ export default function FinalCTA() {
                 </motion.button>
                 
                 <motion.button
+                  onClick={handleSubscribe}
                   className="w-full border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-purple-600 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
+import { LoadingProvider } from "@/contexts/LoadingContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -64,7 +65,9 @@ export default function RootLayout({
             </filter>
           </defs>
         </svg>
-        {children}
+        <LoadingProvider>
+          {children}
+        </LoadingProvider>
       </body>
     </html>
   );

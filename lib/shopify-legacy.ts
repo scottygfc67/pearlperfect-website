@@ -1,4 +1,4 @@
-const SHOPIFY_ENDPOINT = `https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION || '2024-04'}/graphql.json`;
+const SHOPIFY_ENDPOINT = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2023-10/graphql.json`;
 
 interface ShopifyResponse<T> {
   data: T;
@@ -48,15 +48,15 @@ export function toVariantGid(idOrGid: string): string {
 
 // GraphQL client
 async function sfy<T>(query: string, variables?: Record<string, any>): Promise<T> {
-  const accessToken = process.env.SHOPIFY_ACCESS_TOKEN;
-  const domain = process.env.SHOPIFY_DOMAIN;
+  const accessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+  const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
   
   if (!accessToken) {
-    throw new Error('SHOPIFY_ACCESS_TOKEN is not set');
+    throw new Error('SHOPIFY_STOREFRONT_ACCESS_TOKEN is not set');
   }
   
   if (!domain) {
-    throw new Error('SHOPIFY_DOMAIN is not set');
+    throw new Error('NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN is not set');
   }
 
   console.log('Legacy Shopify API Debug:', {

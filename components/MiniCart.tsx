@@ -24,20 +24,50 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
     }
   }, [isOpen]);
 
+  // Listen for cart updates from other components
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      console.log('Cart update event received, reloading cart');
+      loadCart();
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    return () => window.removeEventListener('cartUpdated', handleCartUpdate);
+  }, []);
+
   const loadCart = async () => {
     const cartId = getCartIdClient();
-    if (!cartId) return;
+    console.log('MiniCart loading cart with ID:', cartId);
+    
+    if (!cartId) {
+      console.log('No cart ID found, cart is empty');
+      setCart(null);
+      return;
+    }
 
     setIsLoading(true);
     try {
       const response = await fetch(`/api/cart/get?id=${cartId}`);
       const result = await response.json();
       
+      console.log('Cart API response:', result);
+      
       if (result.success) {
         setCart(result.cart);
+        console.log('Cart loaded successfully:', result.cart);
+        
+        // If cart is empty, clear the cart ID
+        if (result.cart && result.cart.lines && result.cart.lines.length === 0) {
+          console.log('Cart is empty, clearing cart ID');
+          // Don't clear the cart ID here, let the user keep the cart for potential future use
+        }
+      } else {
+        console.error('Cart load failed:', result.error);
+        setCart(null);
       }
     } catch (error) {
       console.error('Error loading cart:', error);
+      setCart(null);
     } finally {
       setIsLoading(false);
     }
@@ -61,6 +91,8 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
       const result = await response.json();
       if (result.success) {
         setCart(result.cart);
+        // Dispatch cart update event
+        window.dispatchEvent(new CustomEvent('cartUpdated'));
       }
     } catch (error) {
       console.error('Error updating quantity:', error);
@@ -87,6 +119,8 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
       const result = await response.json();
       if (result.success) {
         setCart(result.cart);
+        // Dispatch cart update event
+        window.dispatchEvent(new CustomEvent('cartUpdated'));
       }
     } catch (error) {
       console.error('Error removing line:', error);
@@ -156,25 +190,34 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
                     >
                       {/* Product Image */}
                       <div className="w-16 h-16 bg-white rounded-lg overflow-hidden flex-shrink-0">
-                        <Image
-                          src={line.merchandise.image.url}
-                          alt={line.merchandise.image.altText}
-                          width={64}
-                          height={64}
-                          className="w-full h-full object-cover"
-                        />
+                        {line.merchandise.image ? (
+                          <Image
+                            src={line.merchandise.image.url}
+                            alt={line.merchandise.image.altText || line.merchandise.product.title || 'Product image'}
+                            width={64}
+                            height={64}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-400 text-xs">No Image</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Product Details */}
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium text-gray-900 truncate">
-                          {line.merchandise.product.title}
+                          {line.merchandise.product?.title || 'Unknown Product'}
                         </h3>
                         <p className="text-sm text-gray-500 truncate">
-                          {line.merchandise.title}
+                          {line.merchandise.title || 'Default Variant'}
                         </p>
                         <p className="text-sm font-medium text-gray-900">
-                          {formatPrice(line.merchandise.price.amount, line.merchandise.price.currencyCode)}
+                          {line.merchandise.price ? 
+                            formatPrice(line.merchandise.price.amount, line.merchandise.price.currencyCode) : 
+                            'Price unavailable'
+                          }
                         </p>
                       </div>
 
@@ -222,7 +265,10 @@ export default function MiniCart({ isOpen, onClose }: MiniCartProps) {
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-medium text-gray-900">Subtotal</span>
                   <span className="text-lg font-bold text-gray-900">
-                    {formatPrice(cart.cost.subtotalAmount.amount, cart.cost.subtotalAmount.currencyCode)}
+                    {cart.cost?.subtotalAmount ? 
+                      formatPrice(cart.cost.subtotalAmount.amount, cart.cost.subtotalAmount.currencyCode) : 
+                      'Calculating...'
+                    }
                   </span>
                 </div>
 

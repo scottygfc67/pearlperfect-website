@@ -3,15 +3,31 @@
 import { motion } from 'framer-motion';
 import { Star, Shield, Truck } from 'lucide-react';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import HeroSkeleton from '@/components/ui/HeroSkeleton';
 
 export default function Hero() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate image loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <HeroSkeleton />;
+  }
 
 
   return (
     <section 
       className="relative min-h-screen flex items-center overflow-hidden bg-white"
       style={{
-        backgroundImage: 'url(/hero.svg)',
+        backgroundImage: 'url(/heroperson.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

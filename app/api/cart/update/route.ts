@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateLines } from '@/lib/shopify';
+import { updateLines } from '@/lib/shopify-cart';
 import { getCartId, setCartId } from '@/lib/cart-server';
 import { CartLineUpdateInput } from '@/lib/shopify';
 
@@ -34,7 +34,6 @@ export async function POST(request: NextRequest) {
       success: true,
       cartId: result.cartId,
       checkoutUrl: result.checkoutUrl,
-      totalQuantity: result.totalQuantity,
     });
   } catch (error) {
     console.error('Update lines error:', error);

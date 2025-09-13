@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCart } from '@/lib/shopify';
+import { createCart } from '@/lib/shopify-cart';
 import { setCartId } from '@/lib/cart-server';
-import { CartLineInput } from '@/lib/shopify';
+import { CartLineInput } from '@/lib/shopify-cart';
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,13 +11,12 @@ export async function POST(request: NextRequest) {
     const result = await createCart(lines);
 
     // Set cart ID in cookie for future requests
-    setCartId(result.cartId);
+    await setCartId(result.cartId);
 
     return NextResponse.json({
       success: true,
       cartId: result.cartId,
       checkoutUrl: result.checkoutUrl,
-      totalQuantity: result.totalQuantity,
     });
   } catch (error) {
     console.error('Cart creation error:', error);

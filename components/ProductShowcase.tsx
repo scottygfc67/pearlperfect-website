@@ -1,28 +1,152 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Heart, ShoppingCart, Plus, Minus, Zap, Shield, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import { addToCart, getDefaultVariantId } from '@/lib/cart-utils';
+import { directCheckoutAction } from '@/app/actions/checkout';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { ProductSkeleton, PriceSkeleton } from '@/components/ui/SkeletonLoader';
+import { apiCache } from '@/lib/api-cache';
+
+interface ProductData {
+  price: number;
+  compareAtPrice: number;
+  title: string;
+  description: string;
+}
 
 export default function ProductShowcase() {
   const [quantity, setQuantity] = useState(1);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [productData, setProductData] = useState<ProductData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [buyingNow, setBuyingNow] = useState(false);
 
-  const handleAddToCart = () => {
-    console.log('Added to cart:', { quantity, isSubscribed });
-  };
+  useEffect(() => {
+    // Check cache first
+    const cachedData = apiCache.get<ProductData>('product-v34');
+    if (cachedData) {
+      setProductData(cachedData);
+      setLoading(false);
+      return;
+    }
 
-  const handleWishlist = () => {
+    // Fetch product data from Shopify
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch('/api/products/v34-teeth-whitening-strips');
+        if (response.ok) {
+          const data = await response.json();
+          const productData = {
+            price: parseFloat(data.price || '49.99'),
+            compareAtPrice: parseFloat(data.compareAtPrice || '69.99'),
+            title: data.title || 'PearlPerfect V34 Teeth Whitening Strips',
+            description: data.description || 'Professional-grade teeth whitening strips'
+          };
+          setProductData(productData);
+          // Cache the data for 5 minutes
+          apiCache.set('product-v34', productData, 5 * 60 * 1000);
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+        // Fallback to default prices
+        const fallbackData = {
+          price: 49.99,
+          compareAtPrice: 69.99,
+          title: 'PearlPerfect V34 Teeth Whitening Strips',
+          description: 'Professional-grade teeth whitening strips'
+        };
+        setProductData(fallbackData);
+        // Cache fallback data for shorter time
+        apiCache.set('product-v34', fallbackData, 1 * 60 * 1000);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductData();
+  }, []);
+
+  const handleAddToCart = useCallback(async () => {
+    if (addingToCart) return;
+    
+    setAddingToCart(true);
+    try {
+      const variantId = getDefaultVariantId();
+      const success = await addToCart({
+        variantId,
+        quantity,
+        sellingPlanId: isSubscribed ? 'subscription-plan-id' : undefined
+      });
+      
+      if (success) {
+        console.log('Successfully added to cart!');
+        // You could add a toast notification here
+      } else {
+        console.error('Failed to add to cart');
+        // You could add an error notification here
+      }
+    } finally {
+      setAddingToCart(false);
+    }
+  }, [addingToCart, quantity, isSubscribed]);
+
+  const handleBuyNow = useCallback(async () => {
+    if (buyingNow) return;
+    
+    setBuyingNow(true);
+    try {
+      const variantId = getDefaultVariantId();
+      await directCheckoutAction(variantId, quantity);
+    } finally {
+      setBuyingNow(false);
+    }
+  }, [buyingNow, quantity]);
+
+  const handleWishlist = useCallback(() => {
     setIsWishlisted(!isWishlisted);
-  };
+  }, [isWishlisted]);
 
-  const features = [
+  const features = useMemo(() => [
     { icon: Zap, text: '14 min treatment' },
     { icon: Shield, text: 'Zero sensitivity' },
     { icon: Sparkles, text: 'Visible results' },
-  ];
+  ], []);
+
+  const currentPrice = useMemo(() => {
+    if (!productData) return isSubscribed ? 44.99 : 49.99;
+    return isSubscribed ? (productData.price - 5) : productData.price;
+  }, [productData, isSubscribed]);
+
+  const totalPrice = useMemo(() => {
+    return currentPrice * quantity;
+  }, [currentPrice, quantity]);
+
+  const discountPercentage = useMemo(() => {
+    if (!productData) return 29;
+    return Math.round(((productData.compareAtPrice - productData.price) / productData.compareAtPrice) * 100);
+  }, [productData]);
+
+  if (loading) {
+    return (
+      <section id="shop" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <ProductSkeleton />
+            </div>
+            <div className="space-y-8">
+              <ProductSkeleton />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="shop" className="py-20 bg-white">
@@ -43,6 +167,9 @@ export default function ProductShowcase() {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                priority
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
               />
               
               {/* Product Badge */}
@@ -130,13 +257,13 @@ export default function ProductShowcase() {
             {/* Price */}
             <div className="flex items-center space-x-4">
               <div className="text-4xl font-bold text-black">
-                ${isSubscribed ? '44.99' : '49.99'}
+                £{currentPrice.toFixed(2)}
               </div>
               <div className="text-lg text-black line-through">
-                $69.99
+                £{productData ? productData.compareAtPrice.toFixed(2) : '69.99'}
               </div>
               <div className="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-3 py-1 rounded-full text-sm font-bold">
-                Save 29% 🔥
+                Save {discountPercentage}% 🔥
               </div>
             </div>
 
@@ -196,7 +323,7 @@ export default function ProductShowcase() {
                     className="mt-4 p-3 bg-white rounded-lg"
                   >
                     <p className="text-sm text-green-600 font-semibold">
-                      ✓ You&apos;ll save $5.00 on every order!
+                      ✓ You&apos;ll save £5.00 on every order!
                     </p>
                   </motion.div>
                 )}
@@ -207,20 +334,47 @@ export default function ProductShowcase() {
             <div className="space-y-4">
               <motion.button
                 onClick={handleAddToCart}
-                className="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={addingToCart}
+                className={`w-full px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  addingToCart 
+                    ? 'bg-gray-400 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-purple-600 to-purple-400 text-white hover:shadow-xl'
+                }`}
+                whileHover={!addingToCart ? { scale: 1.02 } : {}}
+                whileTap={!addingToCart ? { scale: 0.98 } : {}}
               >
-                <ShoppingCart className="w-5 h-5" />
-                <span>Add to Cart - ${(isSubscribed ? 44.99 : 49.99) * quantity}</span>
+                {addingToCart ? (
+                  <>
+                    <LoadingSpinner size="sm" color="white" />
+                    <span>Adding...</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-5 h-5" />
+                    <span>Add to Cart - £{totalPrice.toFixed(2)}</span>
+                  </>
+                )}
               </motion.button>
               
               <motion.button
-                className="w-full border-2 border-black text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-black hover:text-white transition-all duration-300"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                onClick={handleBuyNow}
+                disabled={buyingNow}
+                className={`w-full border-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  buyingNow
+                    ? 'border-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'border-black text-black hover:bg-black hover:text-white'
+                }`}
+                whileHover={!buyingNow ? { scale: 1.02 } : {}}
+                whileTap={!buyingNow ? { scale: 0.98 } : {}}
               >
-                Buy Now with 1-Click
+                {buyingNow ? (
+                  <>
+                    <LoadingSpinner size="sm" color="black" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  'Buy Now with 1-Click'
+                )}
               </motion.button>
             </div>
 
@@ -232,7 +386,7 @@ export default function ProductShowcase() {
               </div>
               <div className="flex items-center space-x-2">
                 <Zap className="w-4 h-4 text-purple-600" />
-                <span>Free shipping over $35</span>
+                <span>Free shipping over £35</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Sparkles className="w-4 h-4 text-purple-600" />

@@ -29,7 +29,7 @@ export default function ProductPageClient({ product, variants, images }: Product
             <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-lg">
               <Image
                 src={product.featuredImage.url}
-                alt={product.featuredImage.altText}
+                alt={product.featuredImage.altText || product.title || 'Product image'}
                 width={600}
                 height={600}
                 className="w-full h-full object-cover"
@@ -44,7 +44,7 @@ export default function ProductPageClient({ product, variants, images }: Product
                   <div key={index} className="aspect-square bg-white rounded-lg overflow-hidden shadow-sm">
                     <Image
                       src={image.url}
-                      alt={image.altText}
+                      alt={image.altText || product.title || 'Product image'}
                       width={150}
                       height={150}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
