@@ -11,7 +11,7 @@ export default function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/gradhero.jfif"
+          src="/grad.jpeg"
           alt="Smiling person with bright teeth"
           priority
           fill
