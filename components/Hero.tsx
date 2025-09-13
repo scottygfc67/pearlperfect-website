@@ -4,18 +4,7 @@ import { motion } from 'framer-motion';
 import { Star, Shield, Truck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-
-// Using string path for Next.js Image component
-
 export default function Hero() {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    // allow one paint so layout doesn’t jank with the fill image
-    const t = setTimeout(() => setIsReady(true), 150);
-    return () => clearTimeout(t);
-  }, []);
 
   return (
     <section className="relative min-h-[60vh] w-full overflow-hidden">
