@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import AnnouncementBar from '@/components/AnnouncementBar';
 import ProductShowcase from '@/components/ProductShowcase';
 import SocialProof from '@/components/SocialProof';
 import HowItWorks from '@/components/HowItWorks';
@@ -15,7 +14,6 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <AnnouncementBar />
       <ProductShowcase />
       <SocialProof />
       <HowItWorks />
