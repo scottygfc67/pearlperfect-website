@@ -31,7 +31,7 @@ export default function PageLoader({ isLoading, children, className = '' }: Page
           opacity: isLoading ? 1 : 0,
           pointerEvents: isLoading ? 'auto' : 'none'
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.15 }}
         className="fixed inset-0 bg-white z-50 flex items-center justify-center"
       >
         <div className="text-center">

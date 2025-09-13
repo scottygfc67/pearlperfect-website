@@ -14,7 +14,7 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
     // Show loader for minimum time to prevent flash
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -26,7 +26,7 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 bg-white z-50 flex items-center justify-center"
           >
             <div className="text-center">
@@ -37,7 +37,7 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
                   rotate: [0, 10, -10, 0]
                 }}
                 transition={{ 
-                  duration: 2,
+                  duration: 1,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -50,7 +50,7 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.1 }}
                 className="text-4xl font-bold text-gray-800 mb-4"
               >
                 PearlPerfect
@@ -60,7 +60,7 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.2 }}
                 className="text-lg text-gray-600 mb-12"
               >
                 Your perfect smile awaits...
@@ -77,9 +77,9 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
                       opacity: [0.5, 1, 0.5]
                     }}
                     transition={{
-                      duration: 1.5,
+                      duration: 0.8,
                       repeat: Infinity,
-                      delay: i * 0.2
+                      delay: i * 0.1
                     }}
                   />
                 ))}
@@ -92,7 +92,7 @@ export default function GlobalLoader({ children }: GlobalLoaderProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoading ? 0 : 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2 }}
       >
         {children}
       </motion.div>

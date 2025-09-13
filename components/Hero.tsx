@@ -3,135 +3,109 @@
 import { motion } from 'framer-motion';
 import { Star, Shield, Truck } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import HeroSkeleton from '@/components/ui/HeroSkeleton';
+
+// Using string path for Next.js Image component
 
 export default function Hero() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Simulate image loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    // allow one paint so layout doesn’t jank with the fill image
+    const t = setTimeout(() => setIsReady(true), 150);
+    return () => clearTimeout(t);
   }, []);
 
-  if (isLoading) {
-    return <HeroSkeleton />;
-  }
-
-
   return (
-    <section 
-      className="relative min-h-screen flex items-center overflow-hidden bg-white"
-      style={{
-        backgroundImage: 'url(/heroperson.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/90 via-purple-700/85 to-purple-800/95" />
-      
-      {/* Background Blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 right-20 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl gooey-filter"
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-20 w-80 h-80 bg-purple-600/15 rounded-full blur-3xl gooey-filter"
-          animate={{
-            y: [0, 20, 0],
-            x: [0, -10, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+    <section className="relative min-h-[60vh] w-full overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/gradhero.jfif"
+          alt="Smiling person with bright teeth"
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover"
         />
       </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          {/* Main Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight"
-            style={{ fontFamily: 'var(--font-space-grotesk)' }}
-          >
-            Whiter teeth in{' '}
-            <span className="text-yellow-400">14 days</span>
-          </motion.h1>
+      {/* Gradient + scrim for legibility */}
+      <div className="absolute inset-0 -z-0 pointer-events-none bg-[radial-gradient(60%_60%_at_70%_20%,rgba(147,51,234,0.35),transparent)]" />
+      <div className="absolute inset-0 -z-0 bg-gradient-to-t from-black/60 via-black/40 to-black/10" />
 
-          {/* Subheadline */}
+      {/* Floating blobs (subtle) */}
+      <motion.div
+        className="absolute top-16 right-16 w-64 h-64 bg-purple-500/25 rounded-full blur-3xl"
+        animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute bottom-16 left-10 w-80 h-80 bg-fuchsia-500/20 rounded-full blur-3xl"
+        animate={{ y: [0, 14, 0], x: [0, -8, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-24">
+        <div className="max-w-3xl mx-auto text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed"
+            transition={{ duration: 0.2, delay: 0.02 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs sm:text-sm text-white/90 ring-1 ring-white/20 backdrop-blur"
           >
-            Professional-grade whitening strips that deliver results in just 14 minutes per session. 
-            Enamel-safe, sensitivity-free, and clinically tested.
+            💜 Enamel‑safe • Sensitivity‑free • Clinically tested
           </motion.p>
 
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center items-center mb-8"
+            transition={{ duration: 0.25, delay: 0.05 }}
+            className="mt-3 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.1]"
+            style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
-            <Link href="/products/v34-teeth-whitening-strips">
+            Whiter teeth in <span className="text-yellow-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">14 days</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: 0.08 }}
+            className="mt-3 text-lg sm:text-xl text-white/90 max-w-2xl"
+          >
+            Professional‑grade whitening strips that deliver visible results in just <strong>14 minutes</strong> per session.
+            Gentle on enamel. No sensitivity. Real, clinical results.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: 0.12 }}
+            className="mt-8 flex flex-col items-center justify-center gap-6"
+          >
+            <Link href="/products/v34-teeth-whitening-strips" className="inline-block">
               <motion.button
-                className="group relative px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-purple-600 to-purple-400 text-white font-bold text-lg sm:text-xl rounded-full shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 border-2 border-white/20 hover:border-white/40"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.1 }}
+                className="rounded-full px-8 py-4 text-lg font-semibold text-white
+                           bg-black hover:bg-gray-800
+                           shadow-lg hover:shadow-xl
+                           transition-all duration-150"
               >
-                <span className="relative z-10">Start Now</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                Shop Now
               </motion.button>
             </Link>
+
+            <p className="text-white/80 text-sm sm:text-base">
+              30‑day money‑back guarantee • Free shipping
+            </p>
           </motion.div>
 
-          {/* Trust Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-white/80 text-sm sm:text-base"
-          >
-            <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5" />
-              <span>Enamel Safe</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5" />
-              <span>4.9/5 Rating</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Truck className="w-5 h-5" />
-              <span>Free Shipping</span>
-            </div>
-          </motion.div>
         </div>
       </div>
-
     </section>
   );
 }
