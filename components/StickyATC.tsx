@@ -2,15 +2,13 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, Plus, Minus } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 import { addToCart, getDefaultVariantId } from '@/lib/cart-utils';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { apiCache } from '@/lib/api-cache';
 
 export default function StickyATC() {
   const [isVisible, setIsVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [isSubscribed, setIsSubscribed] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
 
   useEffect(() => {
@@ -31,8 +29,7 @@ export default function StickyATC() {
       const variantId = getDefaultVariantId();
       const success = await addToCart({
         variantId,
-        quantity,
-        sellingPlanId: isSubscribed ? 'subscription-plan-id' : undefined
+        quantity
       });
       
       if (success) {
@@ -45,7 +42,7 @@ export default function StickyATC() {
     } finally {
       setAddingToCart(false);
     }
-  }, [addingToCart, quantity, isSubscribed]);
+  }, [addingToCart, quantity]);
 
   const [productData, setProductData] = useState<{ price: number; compareAtPrice: number } | null>(null);
 
@@ -70,7 +67,7 @@ export default function StickyATC() {
     fetchProductData();
   }, []);
 
-  const price = productData ? (isSubscribed ? productData.price - 5 : productData.price) : (isSubscribed ? 44.99 : 49.99);
+  const price = productData ? productData.price : 49.99;
 
   return (
     <AnimatePresence>
@@ -82,105 +79,64 @@ export default function StickyATC() {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg lg:hidden"
         >
-          <div className="px-4 py-4">
+          <div className="px-4 py-3">
             <div className="flex items-center justify-between">
-              {/* Product Info */}
+              {/* Product Info - Minimal */}
               <div className="flex items-center space-x-3 flex-1">
-                <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">V34</span>
+                <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-xs">V34</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-black text-sm truncate">
-                    PearlPerfect V34 Strips
+                  <h3 className="font-medium text-black text-sm truncate">
+                    V34 Strips
                   </h3>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg font-bold text-black">
-                      £{price}
-                    </span>
-                    {isSubscribed && (
-                      <span className="text-xs text-green-600 bg-green-600/10 px-2 py-1 rounded">
-                        Save 10%
-                      </span>
-                    )}
-                  </div>
+                  <span className="text-base font-bold text-black">
+                    £{price}
+                  </span>
                 </div>
               </div>
 
-              {/* Quantity & Actions */}
-              <div className="flex items-center space-x-3">
-                {/* Quantity Controls */}
-                <div className="flex items-center space-x-2">
+              {/* Actions - Streamlined */}
+              <div className="flex items-center space-x-2">
+                {/* Quantity - Compact */}
+                <div className="flex items-center space-x-1">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
                   >
-                    <Minus className="w-4 h-4" />
+                    <Minus className="w-3 h-3" />
                   </button>
-                  <span className="w-8 text-center font-semibold text-sm">
+                  <span className="w-6 text-center font-medium text-sm">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                    className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3 h-3" />
                   </button>
                 </div>
 
-                {/* Subscribe Toggle */}
-                <button
-                  onClick={() => setIsSubscribed(!isSubscribed)}
-                  className={`w-10 h-6 rounded-full transition-colors ${
-                    isSubscribed ? 'bg-purple-600' : 'bg-gray-300'
-                  }`}
-                >
-                  <div
-                    className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                      isSubscribed ? 'translate-x-5' : 'translate-x-1'
-                    }`}
-                  />
-                </button>
-
-                {/* Add to Cart Button */}
+                {/* Add to Cart Button - Luxurious */}
                 <motion.button
                   onClick={handleAddToCart}
                   disabled={addingToCart}
-                  className={`px-4 py-2 rounded-lg font-semibold text-sm flex items-center space-x-2 transition-colors ${
+                  className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 ${
                     addingToCart
                       ? 'bg-gray-400 cursor-not-allowed text-white'
-                      : 'bg-purple-600 text-white hover:bg-purple-700'
+                      : 'bg-black text-white hover:bg-gray-800 shadow-lg'
                   }`}
-                  whileHover={!addingToCart ? { scale: 1.05 } : {}}
-                  whileTap={!addingToCart ? { scale: 0.95 } : {}}
+                  whileHover={!addingToCart ? { scale: 1.02 } : {}}
+                  whileTap={!addingToCart ? { scale: 0.98 } : {}}
                 >
                   {addingToCart ? (
-                    <>
-                      <LoadingSpinner size="sm" color="white" />
-                      <span>Adding...</span>
-                    </>
+                    <LoadingSpinner size="sm" color="white" />
                   ) : (
-                    <>
-                      <ShoppingCart className="w-4 h-4" />
-                      <span>Add to Cart</span>
-                    </>
+                    'Add to Cart'
                   )}
                 </motion.button>
               </div>
             </div>
-
-            {/* Subscribe Info */}
-            {isSubscribed && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-3 pt-3 border-t border-gray-100"
-              >
-                <p className="text-xs text-green-600 text-center">
-                  ✓ Subscribe and save 10% on every order
-                </p>
-              </motion.div>
-            )}
           </div>
         </motion.div>
       )}

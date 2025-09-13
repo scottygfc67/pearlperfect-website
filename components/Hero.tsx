@@ -83,8 +83,8 @@ export default function Hero() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.1 }}
-                className="rounded-full px-8 py-4 text-lg font-semibold text-white
-                           bg-black hover:bg-gray-800
+                className="rounded-full px-8 py-4 text-lg font-semibold text-purple-700
+                           bg-white hover:bg-gray-100
                            shadow-lg hover:shadow-xl
                            transition-all duration-150"
               >

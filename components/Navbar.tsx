@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import MiniCart from './MiniCart';
@@ -44,9 +44,7 @@ export default function Navbar() {
   const navItems = [
     { name: 'Shop', href: '/products/v34-teeth-whitening-strips' },
     { name: 'How it works', href: '/how-it-works' },
-    { name: 'Results', href: '#results' },
     { name: 'Ingredients', href: '/ingredients' },
-    { name: 'Reviews', href: '#reviews' },
     { name: 'FAQ', href: '/faq' },
   ];
 
@@ -85,8 +83,8 @@ export default function Navbar() {
                   src="/logo.png"
                   alt="PearlPerfect"
                   width={120}
-                  height={40}
-                  className="h-7 sm:h-8 w-auto drop-shadow"
+                  height={38}
+                  className="h-6 sm:h-7 w-auto drop-shadow"
                   priority
                 />
               </Link>
@@ -106,23 +104,7 @@ export default function Navbar() {
             </nav>
 
             {/* Right: Actions */}
-            <div className="pr-2 sm:pr-4 flex items-center gap-1 sm:gap-2">
-              {/* Desktop actions */}
-              <div className="hidden sm:flex items-center">
-                <button
-                  className="p-2 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition"
-                  aria-label="Search"
-                >
-                  <Search size={18} />
-                </button>
-                <button
-                  className="p-2 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition"
-                  aria-label="Account"
-                >
-                  <User size={18} />
-                </button>
-              </div>
-
+            <div className="pr-2 sm:pr-4 flex items-center gap-3 sm:gap-4">
               {/* Cart */}
               <button
                 onClick={() => setIsMiniCartOpen(true)}
@@ -140,8 +122,8 @@ export default function Navbar() {
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="rounded-full px-5 py-2.5 text-sm font-semibold text-white
-                             bg-black hover:bg-gray-800
+                  className="rounded-full px-5 py-2.5 text-sm font-semibold text-purple-700
+                             bg-white hover:bg-gray-100
                              ring-1 ring-white/20 shadow-lg"
                 >
                   Shop Now
@@ -205,36 +187,15 @@ export default function Navbar() {
                       </div>
 
                       {/* Actions */}
-                      <div className="pt-3 border-t border-white/15 space-y-3">
-                        <div className="flex items-center gap-4">
-                          <button className="flex items-center gap-2 rounded-full px-3 py-2 text-white/85 hover:text-white hover:bg-white/10 transition">
-                            <Search size={20} />
-                            <span className="text-sm font-medium">Search</span>
-                          </button>
-                          <button className="flex items-center gap-2 rounded-full px-3 py-2 text-white/85 hover:text-white hover:bg-white/10 transition">
-                            <User size={20} />
-                            <span className="text-sm font-medium">Account</span>
-                          </button>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Link href="/products/v34-teeth-whitening-strips" onClick={() => setIsMobileMenuOpen(false)}>
-                            <motion.button
-                              whileTap={{ scale: 0.98 }}
-                              className="w-full rounded-full border border-white/30 bg-white/15 text-white px-6 py-3 font-semibold"
-                            >
-                              Get My Strips
-                            </motion.button>
-                          </Link>
-                          <Link href="/products/v34-teeth-whitening-strips" onClick={() => setIsMobileMenuOpen(false)}>
-                            <motion.button
-                              whileTap={{ scale: 0.98 }}
-                              className="w-full rounded-full bg-white text-purple-700 px-6 py-3 font-semibold shadow"
-                            >
-                              Shop Now
-                            </motion.button>
-                          </Link>
-                        </div>
+                      <div className="pt-3 border-t border-white/15">
+                        <Link href="/products/v34-teeth-whitening-strips" onClick={() => setIsMobileMenuOpen(false)}>
+                          <motion.button
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full rounded-full bg-white text-purple-700 px-6 py-3 font-semibold shadow"
+                          >
+                            Shop Now
+                          </motion.button>
+                        </Link>
                       </div>
                     </div>
                   </div>
