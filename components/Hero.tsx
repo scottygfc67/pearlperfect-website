@@ -17,6 +17,8 @@ export default function Hero() {
           fill
           sizes="100vw"
           className="object-cover"
+          quality={85}
+          loading="eager"
         />
       </div>
 
@@ -24,16 +26,18 @@ export default function Hero() {
       <div className="absolute inset-0 -z-0 pointer-events-none bg-[radial-gradient(60%_60%_at_70%_20%,rgba(147,51,234,0.35),transparent)]" />
       <div className="absolute inset-0 -z-0 bg-gradient-to-t from-black/60 via-black/40 to-black/10" />
 
-      {/* Floating blobs (subtle) */}
+      {/* Floating blobs (subtle) - Reduced for performance */}
       <motion.div
         className="absolute top-16 right-16 w-64 h-64 bg-purple-500/25 rounded-full blur-3xl"
         animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ willChange: 'transform' }}
       />
       <motion.div
         className="absolute bottom-16 left-10 w-80 h-80 bg-fuchsia-500/20 rounded-full blur-3xl"
         animate={{ y: [0, 14, 0], x: [0, -8, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ willChange: 'transform' }}
       />
 
       {/* Content */}

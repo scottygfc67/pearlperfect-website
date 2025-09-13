@@ -1,11 +1,67 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Truck, CreditCard, Award, Heart, Leaf } from 'lucide-react';
 import { addToCart, getDefaultVariantId } from '@/lib/cart-utils';
 import { directCheckoutAction } from '@/app/actions/checkout';
+import { apiCache } from '@/lib/api-cache';
+
+interface ProductData {
+  price: number;
+  compareAtPrice: number;
+  title: string;
+  description: string;
+}
 
 export default function FinalCTA() {
+  const [productData, setProductData] = useState<ProductData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check cache first
+    const cachedData = apiCache.get<ProductData>('product-v34');
+    if (cachedData) {
+      setProductData(cachedData);
+      setLoading(false);
+      return;
+    }
+
+    // Fetch product data from Shopify
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch('/api/products/v34-teeth-whitening-strips');
+        if (response.ok) {
+          const data = await response.json();
+          const productData = {
+            price: parseFloat(data.price || '49.99'),
+            compareAtPrice: parseFloat(data.compareAtPrice || '69.99'),
+            title: data.title || 'PearlPerfect V34 Teeth Whitening Strips',
+            description: data.description || 'Professional-grade teeth whitening strips'
+          };
+          setProductData(productData);
+          // Cache the data for 5 minutes
+          apiCache.set('product-v34', productData, 5 * 60 * 1000);
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+        // Fallback to default prices
+        const fallbackData = {
+          price: 49.99,
+          compareAtPrice: 69.99,
+          title: 'PearlPerfect V34 Teeth Whitening Strips',
+          description: 'Professional-grade teeth whitening strips'
+        };
+        setProductData(fallbackData);
+        // Cache fallback data for shorter time
+        apiCache.set('product-v34', fallbackData, 1 * 60 * 1000);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductData();
+  }, []);
   const handleBuyNow = async () => {
     const variantId = getDefaultVariantId();
     await directCheckoutAction(variantId, 1);
@@ -83,11 +139,17 @@ export default function FinalCTA() {
                 </div>
                 
                 <div className="flex items-center space-x-4 mb-6">
-                  <div className="text-4xl font-bold">£49.99</div>
-                  <div className="text-lg opacity-75 line-through">£69.99</div>
-                  <div className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
-                    Save 29%
-                  </div>
+                  {loading ? (
+                    <div className="text-4xl font-bold">Loading...</div>
+                  ) : (
+                    <>
+                      <div className="text-4xl font-bold">£{productData?.price?.toFixed(2) || '49.99'}</div>
+                      <div className="text-lg opacity-75 line-through">£{productData?.compareAtPrice?.toFixed(2) || '69.99'}</div>
+                      <div className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
+                        Save {productData ? Math.round(((productData.compareAtPrice - productData.price) / productData.compareAtPrice) * 100) : 29}%
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 

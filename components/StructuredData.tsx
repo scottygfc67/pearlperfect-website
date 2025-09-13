@@ -16,7 +16,7 @@ export default function StructuredData() {
     "offers": {
       "@type": "Offer",
       "url": "https://pearlperfect.com",
-      "priceCurrency": "USD",
+      "priceCurrency": "GBP",
       "price": "49.99",
       "priceValidUntil": "2024-12-31",
       "availability": "https://schema.org/InStock",
