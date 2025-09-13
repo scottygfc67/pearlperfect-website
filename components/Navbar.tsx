@@ -5,12 +5,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import MiniCart from './MiniCart';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  
+  // Check if we're on a product page
+  const isProductPage = pathname?.includes('/products/');
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Detect scroll to tighten glass and add contrast after hero
@@ -67,13 +72,18 @@ export default function Navbar() {
           <div
             className={[
               "mt-4 flex h-14 sm:h-16 items-center justify-between rounded-2xl",
-              "backdrop-blur-xl",
-              // base glass
-              "bg-white/10 ring-1 ring-white/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)]",
-              // purple tint that matches hero + slightly stronger when scrolled
-              isScrolled
-                ? "bg-gradient-to-br from-purple-600/25 via-fuchsia-500/20 to-purple-700/25"
-                : "bg-gradient-to-br from-purple-500/15 via-fuchsia-400/10 to-purple-700/15",
+              // Different styling for product pages vs landing page
+              isProductPage
+                ? "bg-gradient-to-r from-purple-600 to-purple-500 shadow-lg ring-1 ring-purple-200"
+                : [
+                    "backdrop-blur-xl",
+                    // base glass
+                    "bg-white/10 ring-1 ring-white/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)]",
+                    // purple tint that matches hero + slightly stronger when scrolled
+                    isScrolled
+                      ? "bg-gradient-to-br from-purple-600/25 via-fuchsia-500/20 to-purple-700/25"
+                      : "bg-gradient-to-br from-purple-500/15 via-fuchsia-400/10 to-purple-700/15",
+                  ].join(' ')
             ].join(' ')}
           >
             {/* Left: Brand */}
@@ -96,7 +106,11 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="relative text-white/85 hover:text-white transition-colors font-medium"
+                  className={`relative transition-colors font-medium ${
+                    isProductPage 
+                      ? "text-white/90 hover:text-white" 
+                      : "text-white/85 hover:text-white"
+                  }`}
                 >
                   {item.name}
                 </Link>
@@ -108,11 +122,19 @@ export default function Navbar() {
               {/* Cart */}
               <button
                 onClick={() => setIsMiniCartOpen(true)}
-                className="relative p-2 rounded-full text-white/90 hover:text-white hover:bg-white/10 transition"
+                className={`relative p-2 rounded-full transition ${
+                  isProductPage 
+                    ? "text-white/90 hover:text-white hover:bg-white/10" 
+                    : "text-white/90 hover:text-white hover:bg-white/10"
+                }`}
                 aria-label="Open cart"
               >
                 <ShoppingCart size={18} />
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-white text-purple-700 text-[10px] flex items-center justify-center font-bold shadow">
+                <span className={`absolute -top-1 -right-1 h-5 w-5 rounded-full text-[10px] flex items-center justify-center font-bold shadow ${
+                  isProductPage 
+                    ? "bg-purple-600 text-white" 
+                    : "bg-white text-purple-700"
+                }`}>
                   0
                 </span>
               </button>
@@ -132,7 +154,11 @@ export default function Navbar() {
 
               {/* Mobile menu toggle */}
               <button
-                className="lg:hidden p-2 rounded-full text-white/90 hover:text-white hover:bg-white/10 transition touch-manipulation"
+                className={`lg:hidden p-2 rounded-full transition touch-manipulation ${
+                  isProductPage 
+                    ? "text-white/90 hover:text-white hover:bg-white/10" 
+                    : "text-white/90 hover:text-white hover:bg-white/10"
+                }`}
                 onClick={() => setIsMobileMenuOpen((v) => !v)}
                 aria-label="Toggle mobile menu"
                 aria-expanded={isMobileMenuOpen}
@@ -160,11 +186,13 @@ export default function Navbar() {
                 className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
               >
                 <div
-                  className="mt-2 overflow-hidden rounded-2xl backdrop-blur-xl
-                             bg-gradient-to-br from-white/15 via-white/10 to-white/8
-                             ring-1 ring-white/15 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.45)]"
+                  className={`mt-2 overflow-hidden rounded-2xl ${
+                    isProductPage 
+                      ? "bg-gradient-to-r from-purple-600 to-purple-500 ring-1 ring-purple-200 shadow-lg" 
+                      : "backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/8 ring-1 ring-white/15 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.45)]"
+                  }`}
                 >
-                  <div className="bg-gradient-to-br from-purple-600/25 via-fuchsia-500/20 to-purple-800/25">
+                  <div className={isProductPage ? "bg-gradient-to-r from-purple-600 to-purple-500" : "bg-gradient-to-br from-purple-600/25 via-fuchsia-500/20 to-purple-800/25"}>
                     <div className="px-4 py-6 space-y-5">
                       {/* Links */}
                       <div className="space-y-2">
@@ -177,7 +205,11 @@ export default function Navbar() {
                           >
                             <Link
                               href={item.href}
-                              className="block rounded-xl px-3 py-3 text-base font-medium text-white/90 hover:text-white hover:bg-white/10 transition"
+                              className={`block rounded-xl px-3 py-3 text-base font-medium transition ${
+                                isProductPage 
+                                  ? "text-white/90 hover:text-white hover:bg-white/10" 
+                                  : "text-white/90 hover:text-white hover:bg-white/10"
+                              }`}
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
                               {item.name}
