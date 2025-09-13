@@ -70,10 +70,10 @@ export default function HowItWorks() {
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="relative"
               >
                 {/* Connection Line */}
@@ -115,10 +115,10 @@ export default function HowItWorks() {
 
         {/* Features */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
           className="mt-20"
         >
           <div className="bg-gradient-to-r from-purple-600 to-purple-400 rounded-3xl p-8 lg:p-12">
@@ -130,10 +130,10 @@ export default function HowItWorks() {
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  transition={{ duration: 0.2, delay: index * 0.05 }}
                   className="text-center"
                 >
                   <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -153,10 +153,10 @@ export default function HowItWorks() {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
           className="text-center mt-16"
         >
           <button className="bg-gradient-to-r from-purple-600 to-purple-400 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-700 hover:to-purple-500 transition-all duration-300 shadow-lg hover:shadow-xl">

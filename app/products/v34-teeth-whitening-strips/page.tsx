@@ -104,7 +104,7 @@ export default async function ProductPage() {
 
   return (
     <PageLoader isLoading={false}>
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-white">
         <Navbar />
         <main className="mx-auto max-w-6xl px-4 py-10">
           <Suspense fallback={<div className="h-96 bg-gray-200 animate-pulse rounded-2xl" />}>

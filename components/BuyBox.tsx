@@ -192,52 +192,54 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg">
+    <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-lg">
       {/* Product Title & Rating */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.title}</h1>
+      <div className="mb-4 sm:mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{product.title}</h1>
         <div className="flex items-center space-x-2 mb-4">
           <div className="flex items-center">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+              <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
             ))}
           </div>
-          <span className="text-sm text-gray-600">(4.8) • 2,847 reviews</span>
+          <span className="text-xs sm:text-sm text-gray-600">(4.8) • 2,847 reviews</span>
         </div>
       </div>
 
       {/* Price */}
       <div className="mb-6">
-        <div className="flex items-center space-x-3">
-          <span className="text-3xl font-bold text-gray-900">
+        <div className="flex items-center space-x-4 mb-2">
+          <span className="text-3xl sm:text-4xl font-bold text-gray-900">
             {price ? formatPrice(price.amount, price.currencyCode) : 'Loading...'}
           </span>
           {compareAtPrice && (
-            <span className="text-xl text-gray-500 line-through">
+            <span className="text-xl sm:text-2xl text-gray-500 line-through">
               {formatPrice(compareAtPrice.amount, compareAtPrice.currencyCode)}
             </span>
           )}
         </div>
         {compareAtPrice && (
-          <p className="text-sm text-green-600 font-medium mt-1">
-            Save {formatPrice(
-              (parseFloat(compareAtPrice.amount) - parseFloat(price?.amount || '0')).toString(),
-              compareAtPrice.currencyCode
-            )}
-          </p>
+          <div className="flex items-center space-x-2">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+              Save {formatPrice(
+                (parseFloat(compareAtPrice.amount) - parseFloat(price?.amount || '0')).toString(),
+                compareAtPrice.currencyCode
+              )}
+            </span>
+          </div>
         )}
       </div>
 
       {/* Variant Selectors */}
       {product.options.map((option) => (
-        <div key={option.name} className="mb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">{option.name}</h3>
+        <div key={option.name} className="mb-4 sm:mb-6">
+          <h3 className="text-xs sm:text-sm font-medium text-gray-900 mb-2 sm:mb-3">{option.name}</h3>
           <div className="flex flex-wrap gap-2">
             {option.values.map((value) => (
               <button
                 key={value}
                 onClick={() => handleOptionChange(option.name, value)}
-                className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded-lg border text-xs sm:text-sm font-medium transition-colors ${
                   selectedOptions[option.name] === value
                     ? 'border-purple-600 bg-purple-50 text-purple-600'
                     : 'border-gray-300 text-gray-700 hover:border-gray-400'
@@ -251,19 +253,19 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
       ))}
 
       {/* Quantity Selector */}
-      <div className="mb-6">
-        <h3 className="text-sm font-medium text-gray-900 mb-3">Quantity</h3>
+      <div className="mb-4 sm:mb-6">
+        <h3 className="text-xs sm:text-sm font-medium text-gray-900 mb-2 sm:mb-3">Quantity</h3>
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 text-sm sm:text-base"
           >
             -
           </button>
-          <span className="w-12 text-center font-medium">{quantity}</span>
+          <span className="w-10 sm:w-12 text-center font-medium text-black text-sm sm:text-base">{quantity}</span>
           <button
             onClick={() => setQuantity(quantity + 1)}
-            className="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 text-sm sm:text-base"
           >
             +
           </button>
@@ -307,17 +309,18 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
         <motion.button
           onClick={handleAddToCart}
           disabled={!isAvailable || isAddingToCart}
-          className={`w-full py-4 px-6 rounded-full font-bold text-lg transition-all duration-300 ${
+          className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 ${
             isAvailable && !isAddingToCart
-              ? 'bg-gradient-to-r from-purple-600 to-purple-400 text-white hover:from-purple-700 hover:to-purple-500 shadow-lg hover:shadow-xl'
+              ? 'bg-gradient-to-r from-purple-600 to-purple-500 text-white hover:from-purple-700 hover:to-purple-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
+          whileHover={isAvailable && !isAddingToCart ? { scale: 1.02 } : {}}
           whileTap={{ scale: 0.98 }}
         >
           {isAddingToCart ? (
             <div className="flex items-center justify-center space-x-2">
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Adding...</span>
+              <span>Adding to Cart...</span>
             </div>
           ) : (
             <div className="flex items-center justify-center space-x-2">
@@ -330,29 +333,37 @@ export default function BuyBox({ product, variants, selectedVariantId: propSelec
         <motion.button
           onClick={handleBuyNow}
           disabled={!isAvailable || isBuyingNow}
-          className={`w-full py-4 px-6 rounded-full font-bold text-lg transition-all duration-300 ${
+          className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 ${
             isAvailable && !isBuyingNow
-              ? 'border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white'
-              : 'border-2 border-gray-300 text-gray-500 cursor-not-allowed'
+              ? 'bg-black text-white hover:bg-gray-800 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
+          whileHover={isAvailable && !isBuyingNow ? { scale: 1.02 } : {}}
           whileTap={{ scale: 0.98 }}
         >
-          {isBuyingNow ? 'Processing...' : 'Buy Now'}
+          {isBuyingNow ? (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span>Processing...</span>
+            </div>
+          ) : (
+            'Buy Now'
+          )}
         </motion.button>
       </div>
 
       {/* Trust Indicators */}
-      <div className="space-y-3 text-sm text-gray-600">
+      <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-600">
         <div className="flex items-center space-x-2">
-          <Shield className="w-4 h-4 text-green-600" />
+          <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
           <span>30-day money-back guarantee</span>
         </div>
         <div className="flex items-center space-x-2">
-          <Truck className="w-4 h-4 text-green-600" />
-          <span>Free shipping over $35</span>
+          <Truck className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+          <span>Free shipping over £35</span>
         </div>
         <div className="flex items-center space-x-2">
-          <CreditCard className="w-4 h-4 text-green-600" />
+          <CreditCard className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
           <span>Secure checkout</span>
         </div>
       </div>

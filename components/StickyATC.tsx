@@ -106,7 +106,7 @@ export default function StickyATC() {
                   >
                     <Minus className="w-3 h-3" />
                   </button>
-                  <span className="w-6 text-center font-medium text-sm">
+                  <span className="w-6 text-center font-medium text-sm text-black">
                     {quantity}
                   </span>
                   <button
