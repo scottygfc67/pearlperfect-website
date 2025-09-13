@@ -1,11 +1,29 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageLoader from '@/components/ui/PageLoader';
 import { Check, Clock, Shield, Sparkles, Zap, Star } from 'lucide-react';
 
 export default function HowItWorks() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
+    <PageLoader isLoading={isLoading}>
+      <div className="min-h-screen bg-white">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <Navbar />
+        </div>
       
       {/* Hero Section */}
       <section className="py-16 px-6 bg-gradient-to-br from-purple-50 via-white to-purple-100">
@@ -420,7 +438,8 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoader>
   );
 }

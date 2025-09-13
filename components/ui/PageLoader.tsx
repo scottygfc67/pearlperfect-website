@@ -1,8 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-export default function PageLoader() {
+interface PageLoaderProps {
+  isLoading: boolean;
+  children: React.ReactNode;
+}
+
+export default function PageLoader({ isLoading, children }: PageLoaderProps) {
+  if (!isLoading) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
       <div className="text-center">
@@ -13,11 +23,9 @@ export default function PageLoader() {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <img
-            src="/logo.png"
-            alt="PearlPerfect"
-            className="h-12 w-auto mx-auto"
-          />
+          <div className="h-12 w-12 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full flex items-center justify-center mx-auto">
+            <span className="text-white font-bold text-xl">P</span>
+          </div>
         </motion.div>
 
         {/* Loading spinner */}

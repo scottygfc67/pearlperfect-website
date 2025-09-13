@@ -71,7 +71,7 @@ export default function Navbar() {
         >
           <div
             className={[
-              "mt-4 flex h-14 sm:h-16 items-center justify-between rounded-2xl",
+              "mt-6 mb-2 flex h-16 sm:h-18 items-center justify-between rounded-2xl px-4 sm:px-6",
               // Different styling for product pages vs landing page
               isProductPage
                 ? "bg-gradient-to-r from-purple-600 to-purple-500 shadow-lg ring-1 ring-purple-200"
@@ -87,7 +87,7 @@ export default function Navbar() {
             ].join(' ')}
           >
             {/* Left: Brand */}
-            <div className="pl-3 sm:pl-5">
+            <div className="flex-shrink-0">
               <Link href="/" className="flex items-center gap-2" aria-label="PearlPerfect home">
                 <Image
                   src="/logo.png"
@@ -118,7 +118,7 @@ export default function Navbar() {
             </nav>
 
             {/* Right: Actions */}
-            <div className="pr-2 sm:pr-4 flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* Cart */}
               <button
                 onClick={() => setIsMiniCartOpen(true)}
